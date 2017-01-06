@@ -1,5 +1,5 @@
 #Relational Algebra1 (관계대수)
--
+
 ##Relation
 릴레이션은 행과 열로 구분되는 테이블이다<br><br>
 ![릴레이션 설명](https://68.media.tumblr.com/9b22ef08f4a98dd058110aaea7ce4e5e/tumblr_ojcq2joZZI1v80c66o1_540.jpg)
