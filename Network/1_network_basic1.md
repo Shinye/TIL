@@ -1,11 +1,11 @@
 #컴퓨터 네트워크 기본1
 ##데이터 통신 및 네트워크의 개념
 두 객체가 어떤 약속을 통해 서로 무언가를 주고받는 것.
-###* 데이터
+###데이터
 - 문자, 숫자, 화상, 음성 등
 - 컴퓨터 시스템에서의 데이터는 '비트' (이진수)
 
-###* 통신(Communication)
+###통신(Communication)
 - 정보를 공유하는 것
 - 두 사람 혹은 장치에서,
 - 정보의 공유를 위해
@@ -13,7 +13,7 @@
 - 동선, 광섬유, 혹은 무선링크를 포함하는 전송 매체를 통해
 - 기호나 표시 등을 사용하여 한 지점에서 다른 지점으로 정보를 전달하는 과정
 
-###* 네트워크
+###네트워크
 통신되고자 하는 객체들의 '집합'.<br>
 **데이터의 송/수신을 원하는 객체들을 전송 매체로 연결해서, 정해진 규칙 아래 데이터를 교환하는 시스템.**<br>
 ####필수 구성요소
@@ -29,7 +29,7 @@
 - **프로토콜(Protocol)**<br>
 데이터 통신과 관련된 **규칙**들로 구성, 통신 장치간의 상호 합의<br><br>
 
-###* 기초 용어
+###기초 용어
 - **네트워크**<br>
 전송 매체로 연결된 시스템의 모음 <br>
 작은 네트워크'들' + 표준화(프로토콜을 fix시킴-국제적인 프로토콜) => 인터넷<br>
@@ -58,7 +58,77 @@
 - 서버(server) : 서비스를 '제공'하는 시스템<br>
 
 
-### Connection Oriented Service : TCP
-TCP : Transmission Control Protocol 의 약자<br>
-**TCP의 특징**<br>
-...
+### Connection Oriented Service [vs] Connectionless Service
+(해당 내용 차후에 다시 수정 바람)
+통신에는 연결 지향 방식, 비연결 지향 방식이 있다.
+#### 1. Connection Oriented Service : TCP
+
+TCP : Transmission Control Protocol 의 약자.<br>
+**Connection Oriented란?**<br>
+연결지향 프로토콜. 프로토콜에 의해 **연속적인** 패킷으로 상태정보가 유지되는 것.
+상대적으로 Reliable한 대신 비용이 많이 든다.(Computing Resources, Network Resources 많이!)<br><br>
+**< TCP의 특징 >**<br>
+
+클라이언트가 네트워크를 사용 할 때, TCP를 사용 하여 데이터를 전달할 시 다음과 같은 기능들이 제공된다.<br>
+
+- **Reliable, in-order byte-stream data transfer.<br>**
+데이터가 손실되지 않고, 처음 보낸 데이터 순서대로 그대로 가는 것. 데이터 손실이 일어났을 땐 그것을 알리고 다시 재전송 하는 역할을 함으로써 데이터를 정확히 전송할 수 있게 한다.
+- **Flow Control<br>**
+송신장치는 수신장치의 능력에 맞추어 데이터를 전달한다. (386컴퓨터에게 슈퍼컴퓨터에게 보내듯 보내면 안되듯이..)
+- **Congestion(혼잡) Control<br>**
+네트워크 상황을 고려하여 데이터를 전송한다.
+
+**< TCP 활용 예시 >**<br>
+HTTP(@web), FTP(File Transfer Protocol), Telnet(remote login), SMTP(email) ...
+
+
+####2. Connectionless Service : UDP
+UDP : User Datagram Protocol<br>
+비연결지향 프로토콜. 각각의 패킷들이 **독립적으로** 다루어진다.
+
+**< UDP의 특징 >**<br>
+
+클라이언트가 네트워크를 사용 할 때, UDP를 사용 하여 데이터를 전달할 시 다음과 같은 기능들이 제공된다.<br>
+
+- **Connectionless**
+- **Unreliable Data Transfer<br>**
+- **No Flow Control<br>**
+- **No Congestion(혼잡) Control<br>**<br>
+
+
+##Network Switching
+데이터를 목적지까지 정확하게 전송하기 위한 중개(제3자로써 두 당사자 사이에 서서 일을 주선하는..) 작업
+
+###1. 회선 교환망 (Circuit Switching)
+
+- 음성 전화 시스템에서 발전하였다.
+- 두 종단(end-to-end)시스템 사이에 회선이라는 **'전용선로'** 사용
+- 데이터를 전송하기 전에 두 종단 시스템의 연결 경로를 **'사전에'** 설정해놓음. 
+- 모든 데이터가 **'동일한 경로'** 를 통해 전달
+- 고정 대역 할당으로 안정적인 전송률 지원.
+
+
+###2. 패킷 교환망 (Packet Switching)
+- 컴퓨터 네트워크에서 발전
+- 회선 교환망과는 달리, 전송 경로를 **미리 설정하지 않음**
+- 전송 데이터를 **'패킷'**이라는 블록 단위로 나누어 전송. <br>
+ * 라우터가 패킷을 저장하고, 포워딩 (==중개==스위칭)하기 위함
+ * 패킷이란? IP레벨에서 전송될 수 있는 데이터 단위.
+- 장점
+ * 전송 대역의 효율성
+ * 호스트 무제한 수용
+ * 패킷의 **우선순위** 부여 가능(Quality Of Service) : 서비스에 차등을 둘 수 있다(ex.동영상 파일 우선 재생 > 텍스트 표시)
+- 단점
+ * 서비스 delay(burst packet)
+ * jitter
+
+ 
+### 2-1. Delay in Packet Switching Network
+1. **Processing Delay<br>**
+라우터가 패킷의 IP 헤더를 확인하여 어느 목적지로 보낼지 결정하고, 오류 없이 올바르게 전달되었는지 검사하는 데 걸리는 시간
+2. **Queueing Delay<br>**
+전송과정에서 라우터의 큐에 먼저 들어온 패킷이 처리 완료될 때 까지 일시적으로 대기하는데 걸리는 시간. 만약 큐가 비어있다면 Queueing Delay는 0 이지만 많은 패킷이 큐에 이미 대기하고 있다면 Queueing Delay가 크다. 또한 큐의 크기는 고정되어 있기 때문에 만약 일시적으로 큐의 범위를 벗어나는 많은 패킷이 라우터로 들어오게 되면 큐의 범위를 초과하여 패킷 손실(Packet Loss)이 발생할 수 있다.
+3. **Transmission Delay<br>**
+Queueing Delay가 끝나고 본인패킷의 차례가 되었을 때, 전달하고자 하는 패킷 안의 모든 비트들을 전송하기 위해서 모든 비트들을 링크로 밀어내는 시간을 의미.
+4. **Propagation Delay<br>**
+물리적인 전달매체를 통하여 송신장치에서부터 수신장치까지 도달하는데 걸리는 시간을 의미.
