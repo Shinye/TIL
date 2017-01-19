@@ -166,3 +166,11 @@ $
 [^source]: bash 내부 명령어로, 스크립트 파일을 수정한 후에 수정된 값을 바로 적용하기 위해 사용하는 명령어이다. source 뒤의 파일을 읽어 실행한다. source 대신 그 자리에 '.' 을 작성하여 사용할수도 있다.
 
 [^find]: **find 명령어** : 디스크에 저장된 각종 파일/디렉토리를 검색할 수 있다. 위의 코드는 usr 디렉토리에서 virtualwrapper.sh 라는 이름의 파일을 찾는 명령이란 뜻이다. 자세한 설명은 [여기](http://geundi.tistory.com/37)서 확인.<br>`find [찾을 디렉토리 경로] [찾기 옵션]` 
+
+<br><br>
+**참고 url**<br>
+https://pypi.python.org/pypi/virtualenvwrapper<br>
+http://blog.naver.com/ez_/140138625021<br>
+http://intersnipe.blogspot.kr/2015/01/mac-django-virtualenv-virtualenvwrapper.html
+https://beomi.github.io/2016/12/27/HowToSetup-Virtualenv-VirtualenvWrapper.html
+http://hackersstudy.tistory.com/43
