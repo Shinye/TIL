@@ -1,7 +1,16 @@
 #프로세스
 ![https://68.media.tumblr.com/449c3ea2351d4bf0c23f593ea4b7e7dc/tumblr_ok4bzwdlCK1v80c66o1_540.jpg](https://68.media.tumblr.com/449c3ea2351d4bf0c23f593ea4b7e7dc/tumblr_ok4bzwdlCK1v80c66o1_540.jpg)
 
-1. mkdir, tm, top 등의 각 명령어들은 각각 하나의 프로그램이다.<br> 이들은 /bin, /sbin 디렉토리에 **파일의 형태**로, 하드디스크에 저장된다.
+1. mkdir, tm, top 등의 각 명령어들은 각각 하나의 프로그램이다.<br> 이들은 /bin, /sbin 디렉토리에 **파일의 형태**로, 하드디스크에 저장된다.<br><br>
+**/bin과 /sbin** <br>
+(1) /bin<br>
+- 리눅스의 기본 명령어(binary)들이 들어있는 디렉토리
+- 시스템을 운영하는데 필요한 기본적인 명령어들이 들어있음
+- c 컴파일러로 컴파일되어 있어 이진수로 이루어져 있다.<br><br>
+
+(2) /sbin<br>
+Standalone Binary File의 약자<br>
+시스템의 시작에 필요한 파일을 포함<br><br>
 2. `하드디스크(Storage)`에 어장된 프로그램이 실행되면 `메모리`에 적재된다.
 3. 이 적재된 프로그램은 `CPU(Proccessor)`에 의해 처리되고 이것을 `프로세스` 라고 한다.
 
