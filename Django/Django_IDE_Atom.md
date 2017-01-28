@@ -3,6 +3,18 @@
 ##Atom 터미널에서 실행하기
 Django프로젝트를 진행할 때 [Atom](https://atom.io/)이라는 IDE를 활용하기로 하였다. 가상환경 안에서의 원활한 작업을 위하여 터미널에서 해당 디렉토리나 특정 파일을 텍스트 에디터로 바로 열고자 할 때 사용할 수 있는 방법이다.
 
+### 1
+```javascript
+$.fn.GetInnerText = function () {
+    this.each(function () { alert($(this).text()); });
+}
+$(document).ready(
+    function () { 
+        $(".title").GetInnerText();
+    }
+```
+
+
 우선, Atom 메뉴를 클릭하여 `Install Shell Commands` 를 설치한다.<br>
 ![Install Shell Commands](https://68.media.tumblr.com/b9ad325b57bba41084ac7a4c777ac5d7/tumblr_okby5mWwOV1v80c66o2_400.png)<br><br>
 

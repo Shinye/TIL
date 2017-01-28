@@ -16,7 +16,10 @@
 [http://www.kocw.net/home/search/kemView.do?kemId=992403](http://www.kocw.net/home/search/kemView.do?kemId=992403)<br>
 [http://www.kocw.net/home/search/kemView.do?kemId=992403](http://www.kocw.net/home/search/kemView.do?kemId=1064626)<br>
 
+###2. 스터디
+현재 진행 중인 스터디 : 알고리즘 / 코딩 인터뷰 관련 / 웹을 지탱하는 기술<br>
+에 대해 스터디한 내용을 기록합니다 (꼭!!)
 
-###2. 그 외
+###3. 그 외
 프로젝트를 하거나,  개발을 하면서 알게 된 새로운 사실들을 기록합니다. 분야별로 폴더를 나눌 생각입니다. (Python, iOS, JavaScript ...) <br>
 
