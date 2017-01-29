@@ -29,10 +29,56 @@ ls 명령어를 쳐보면 방금 저장한 test.html이 정상적으로 저장�
 원하는 프로세스만을 선택적으로 작업하고 싶은 경우는 프로세스 목록 앞의 숫자를 활용한다.<br>
 - jobs중 원하는 프로세스를 실행하고 싶다 : 2번 프로세스의 실행을 원할 경우, `fg %2` <br>
 - jobs중 원하는 프로세스를 종료하고 싶다 : 4번 프로세스의 종료를 원하는 경우, `kill %4`<br>
-- 보다 강력한 삭제  : kill -9 %4 <br>
+- 보다 강력한 삭제 : kill명령어의 옵션 -9를 쓴다. `kill -9 %4` <br>
 
 &가 명령어 뒤에 붙으면 명령어가 실행될 때 백그라운드로 실행된다.
 
 ```
 ls -alR / > result.txt 2> error.log &
 ```
+
+
+###KILL 명령어에 관하여
+**1. kill의 기능<br>**
+The kill utility **sends a signal to the processes** specified by the pid operand(피연산자). Only the super-user may send signals to other users' processes.<br>
+ `현재 수행 중인 프로세스에게 시그널(신호)를 보내는 것` 이다. 단순히 실행 중인 프로세스를 종료시키는 것이라는 것은 정답이 아니다. 이는 kill 명령어 기능의 일부일 뿐이다.
+
+**2. 문법<br>**
+
+```
+kill [-signalID] PID
+kill  -l
+```
+
+
+**3. 주요 옵션**<br>
+터미널에서 `man kill` 을 통해 본 설명에 의하면
+![https://68.media.tumblr.com/a3010932af33900317432733a8c906b4/tumblr_okjs2n2k5N1v80c66o1_500.png](https://68.media.tumblr.com/a3010932af33900317432733a8c906b4/tumblr_okjs2n2k5N1v80c66o1_500.png)<br>
+다음과 같은 옵션들이 있다.<br> 디폴트로 사용되는 kill 명령어의 시그널 넘버는 15번 (TERM - software termination(종료) signal) 이다. 
+<br>
+
+**3-1. kill -9와 kill -15의 차이** ...더 공부해보기!<br>
+요약하자면 15는 정상종료, 9는 강제종료 이다. 프로세스를 terminating(15)하는 것과 kill(9) 하는 것은 다르다.<br><br>
+**(1) -15**<br>
+- TERM 시그널 (기본 옵션)<br>
+- 자신이 하던 작업을 모두 안전하게 종료하는 절차를 밟는다.<br>
+- 메모리상에 있는 데이터와 각종 설정/환경 파일을 안전하게 저장한 후 프로세스를 종료한다.<br>
+
+```
+# kill PID 
+# kill -15 PID
+```
+
+**(2) -9**
+<br>
+- 리눅스 커널이 프로세스를 강제 종료한다.<br>
+- 작업중인 모든 데이터를 저장하지 않고 프로세스를 종료하기 때문에<br>
+- 저장되지 않은 데이터는 소멸된다.<br>
+
+```
+# kill -9 PID
+```
+
+<br><br>참고 URL<br>
+[http://rerethink.tistory.com/entry/%EB%A6%AC%EB%88%85%EC%8A%A4-kill](http://rerethink.tistory.com/entry/%EB%A6%AC%EB%88%85%EC%8A%A4-kill)<br>
+[http://blog.naver.com/eunjiban/220694919686](http://blog.naver.com/eunjiban/220694919686)
