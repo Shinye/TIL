@@ -45,7 +45,39 @@ rm rename2.txt 1> result.txt 2> error.log
 명령어를 실행 후 standard output이 있을 시엔 `>` 인 result.txt에 아웃풋이 저장되고,<br> 스탠다드 아웃풋이 아닌 standard error(에러메세지)가 있을 시엔 그 에러메세지는 `2>`인 error.log에 저장된다.<br><br>
 
 
+
+### >>
+
+![https://68.media.tumblr.com/bdbcc925d3308cb18eace63dbfd4c498/tumblr_okqsrb6QlV1v80c66o1_400.png](https://68.media.tumblr.com/bdbcc925d3308cb18eace63dbfd4c498/tumblr_okqsrb6QlV1v80c66o1_400.png)
+
+output 역할을 하는 꺽새가 한 개 있을 때와 두 개 있을 때는 차이가 있다.<br>
+
+위의 예시와 같이 꺽새가 두 번 있을 땐 해당 명령 ( `date >> date2.log` ) 을 실행할 때 마다 로그 파일에 명령 실행 결과가 누적되어 기록된다. 
+
+반면, 꺽새가 한 번 있을 땐 해당 명령 ( `date > date.log` ) 이 실행될 때 로그파일에 결과 값이 누적되지 않는다.
+
+
+
+활용 예시로는 `crontab` 에 명령문을 입력할 때, 다음의 명령어를 정기적으로 실행시켜 로그 값을 누적시킬 때 활용할 수 있다. 
+
+```shell
+$ */1 * * * * date >> date.log 2> &1
+# 1분에 한 번씩
+# 명령어 date를 실행시킨 결과값(Standard Output)을 date.log에 저장하며
+# 만약 명령어 date 실행 시 오류(Standard Error)가 나도(2>)
+# 그대로 표준출력 로그(date.log)에 기록하게 한다. (&1)
+# Output에서 숫자 1은 표준출력, 숫자 2는 표준오류를 의미한다.
+# 만약 &1 대신 1을 입력하면 1이라는 이름의 파일이 만들어져 그 파일에 에러 메세지가 저장되게 되므로 숫자 앞에 &를 붙여주자.
+```
+
+
+
+
+
+
+
 ##Input
+
 프로그램은, 컴퓨터의 하드디스크나 SSD에 저장되어있는 코드를 보통 `프로그램`이라 부름.<br>
 이 프로그램이 실행되면, 그 실행되고 있는 상태를 `프로세스`라고 한다.
 하나의 프로그램은 여러개의 프로세스를 가질 수 있다.
