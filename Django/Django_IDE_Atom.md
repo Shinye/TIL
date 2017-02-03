@@ -13,7 +13,7 @@ Django프로젝트를 진행할 때 [Atom](https://atom.io/)이라는 IDE를 활
 
 설치 후엔 다음과 같은 명령어를 쓰면 터미널에서도 atom을 열 수 있다.
 
-```
+```shell
 $ atom mytest.py #아톰 에디터를 통해 해당 파일을 오픈
 $ atom pythonText_directory #아톰 에디터를 통해 해당 디렉토리를 오픈
 $ atom . #"."은 현재 폴더를 프로젝트로 오픈한다는 의미
