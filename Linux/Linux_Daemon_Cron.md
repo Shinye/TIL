@@ -18,6 +18,18 @@ Daemon의 대표적인 사례로는 클라이언트의 요청을 항상 받을 �
 
 Cron은 셸 명령어들이 주어진 일정에 주기적으로 실행하도록 규정해놓은 crontab (cron table) 파일에 의해 구동된다.
 
+
+
+### 옵션
+
+```shell
+$ crontab [옵션]
+```
+
+-l : 현재 crontab에 작성된 내용들을 출력<br> -e : crontab내용을 작성 및 수정 <br> -r : crontab내용을 삭제<br>-u : root가 해당 사용자의 crontab파일을 다룰 때 사용
+
+
+
 ### 문법
 
 Crontab 파일의 문법은 다음과 같다.<br>
