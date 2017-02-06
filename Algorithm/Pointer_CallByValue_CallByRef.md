@@ -1,4 +1,4 @@
-## Pointer
+# Pointer
 
 포인터 : 변수의 **주소**를 저장하는 특수한 변수
 
@@ -52,7 +52,9 @@ int main(){
 
 
 
-## 참조변수
+
+
+# 참조변수
 
 참조변수 : 어느 한 변수의 다른 이름 (별명)
 
@@ -70,7 +72,9 @@ int main(){
 
 
 
-## Call By Value, Call By Reference, Call By Address
+
+
+# Call By Value, Call By Reference, Call By Address
 
 - **Call by value** : 함수가 호출될 때 변수의 값을 함수의 매개변수로 전달.<br> 함수의 인자로 사용될 때 변수의 **값을 그대로 복사** 하여 사용하고, 함수가 닫히면 그 값을 사라진다. 함수 안에서 선언된 지역변수는 그 함수 내부가 사용범위이기에 자신이 선언된 함수가 종료되면 자신도 종료된다.
 - **Call by reference** : 함수가 호출될 때 변수의 주소를 함수의 매개변수로 전달.<br>  함수의 인자로 사용될 때 포인터를 사용해 주소를 가진 참조변수를 이용한다.
@@ -111,7 +115,7 @@ int main(){
 ```c++
 // 포인터를 이용하는 경우. 
 
-void swap(int *x; int *y){
+void swap(int *x, int *y){
   int tmp;
   tmp = *x; // *x == a
   *x = *y; // *y == b
@@ -172,9 +176,6 @@ Call by address와 Call by reference 둘다 결과적으론 원본 변수의 값
 아래 예제 소스를 보면서 확인해보자.
 
 ```c++
-#include <iostream>
-using namespace std;
-
 void CallByAddress(char* add) {
     cout<<sizeof(add)<<endl;     // 사이즈 오브 연산자를 이용해서 add 의 크기을 보면 포인터 변수
 }                                // 기때문에 확인해보면 4바이트라는 값을 출력하고
@@ -193,6 +194,59 @@ int main(void){
  결과값이 다음과 같이 성공적으로 나옴을 알 수 있다.
 
 ![](https://68.media.tumblr.com/bb49c8604d0f257e0e3a9f80a521b6b0/tumblr_oky300qqSR1v80c66o1_1280.png)
+
+
+
+
+
+# 배열과 포인터의 관게
+
+크기 10의 임의의 배열을 가정해보자.<br>
+
+```c++
+int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+cout << "arr값 : " << arr; // &arr[0]의 값과 동일(arr[0]의 주소값)
+```
+
+arr(배열이름) == &arr[0] == arr[0]의 주소 값을 의미한다.<br> 더 나아가 &arr[i]는 arr[i]의 주소값임을 알 수 있다. 배열 안의 원소들이 int인 경우 4byte씩 주소값에 더해진다.
+
+```c++
+arr == &arr[0]
+arr+1 == &arr[0]+1 == &arr[1]
+arr+i = &arr[i]
+```
+
+![](https://68.media.tumblr.com/a24b96ef00c44a56f296e05326bf504a/tumblr_oky53cl86w1v80c66o1_1280.png)
+
+(예시 스크린샷 안의 배열그림의 주소 100은 편의를 위해 임의의 주소를 나타낸 것이다.)
+
+
+
+위의 개념을 종합해보면, 다음의 세 for문 모두 동일한 결과를 출력한다 (1,2,3,4 .. 9,10)
+
+```c++
+int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+
+for(int i=0; i<10; i++){
+  cout << arr[i] << endl;
+}
+
+for(int i=0; i<10; i++){
+  cout << *(arr+i) << endl;
+}
+
+for(int *ptr=arr; ptr<arr+10; ptr++){
+  cout << *ptr << endl; // *ptr == arr[i]의 주소에 저장된 값.
+}
+```
+
+
+
+앞서 살펴본 Call By Address로써도 활용 역시 가능하다.
+
+![](https://68.media.tumblr.com/b5d9d2e78d73d1c0b430e3623ee5ac29/tumblr_oky5kbMadK1v80c66o1_1280.png)
+
+
 
 
 
