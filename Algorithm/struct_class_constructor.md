@@ -220,11 +220,15 @@ void BasketballPlayer :: steal(){
 
 ### 접근 제어 지시자
 
-protected public private…빠른 시일 안에 추가바람…(탈진..ㅇ<-<)
+클래스 안의 경우, 접근 지시자가 없는 경우엔 그 클래스 안의 멤버들을 외부에서는 건들지 못하도록 막아놓고 있다. (그러나 구조체는 접근 제어 지시자가 없으므로 접근할 수 있다. 이 점이 차이점 중 하나.) 따라서 우리는 원하는대로 엑세스 지정을 할 수 있도록 설정할 수 있다.
 
+![](https://68.media.tumblr.com/226bfd99b88b3abfe64afebcf19e2434/tumblr_olb6r9aroK1v80c66o1_1280.png)
 
+<br>
 
 ### 객체
+
+**"클래스가 메모리상에서 구현된 실체"**
 
 앞서 설명하였듯이 클래스는 어디까지나 타입일 뿐이지 그 자체가 정보를 저장하는 변수가 아니다. 우리가 정보를 저장하기 위해 변수를 선언할 때 `자료형 변수명;` 의 형태를 사용하듯, 객체를 생성하는 것 역시 `클래스명 객체명;` 의 형태를 사용하여 객체를 선언한다.
 
@@ -233,8 +237,7 @@ protected public private…빠른 시일 안에 추가바람…(탈진..ㅇ<-<)
 using namespace std;
 
 class BasketballPlayer{ 
-  string name, team, position;
-  double scoring, assist, rebound;
+c  double scoring, assist, rebound;
   
   int goal(int score);
   void blockShot();
@@ -252,6 +255,108 @@ int main(){
 ```
 
 위의 예시와 같이 메인함수 안에 `BasketPlayer player1;` 을 선언함으로써 실제로 메모리에 할당된 것을 가리켜 인스턴스(instance) 라고 한다. 그리고 인스턴스를 다르게 말해 `객체` 라고 부른다.
+
+<br>
+
+
+
+## 생성자
+
+객체를 생성한 후에는 반드시 객체를 초기화 해주어야 한다.(쓰레기값을 갖지 않기 위해) <br>초기화에는 멤버 변수의 값을 초기화 하는 것 뿐만 아니라 객체의 동작에 필요한 메모리 공간이나 파일과 같은 여러가지 자원들을 할당받는 것도 포함된다. C++에서는 이를 담당하는 `생성자` 라는 특수한 함수가 존재한다. 생성자를 사용하면 객체 생성과 동시에 초기화 역시 가능하다. <br>생성자는 값을 반환하지 않으며, 매개 변수를 받을 수도 있고, 클래스명과 동일한 이름을 가진다!<br>만약 프로그래머가 생성자를 정의하지 않았을 시엔 디폴트 소멸자가 자동으로 삽입되어 호출된다.
+
+정리하자면, 생성자는 **객체를 초기화한다는 한 가지 일과 이름이 클래스명과 동일하게 고정되어있다** 는 것이다.
+
+자세한 내용은 다음의 생성자 예시를 보자.
+
+```c++
+class BasketballPlayer{
+private:
+  string name, team, position;
+  ...
+public:
+  BasketballPlayer(){ // 매개변수 없으면 디폴트 생성자. 생성자는 반드시! 퍼블릭으로 선언되어야 한다.
+    name = "Michael Jordan";
+    team = "Chicago Bulls";
+    position = "Small Forward";
+    ...
+  }
+  
+  // 하나의 클래스 안에 여러 생성자 중복 정의가 가능하다. 
+  // 각기 다른 매개변수를 가지고 있음으로써(매개변수가 각기 다르거나 아예 없거나) 구분할 수 있다. 
+  BasketballPlayer(string n, string t, string p){ 
+    name = n;
+    team = t;
+    position = p;
+  }  
+};
+
+// :: 연산자를 사용한다면 클래스 밖에서도 생성자를 선언할 수 있다.
+BasketballPlayer::BasketballPlayer(string n){
+  name = n;
+}
+
+int main(){
+  BasketballPlayer player1; // 디폴트 생성자 호출 (생성자를 호출할 땐 컴파일러가 직접 호출한다.)
+  BasketballPlayer player2("Magic Johnson", "LA Lakers", "Point Guard"); //두번째생성자 호출
+  BasketballPlayer player3("Stephen Curry");
+  
+  return 0;
+}
+```
+
+
+
+### this 포인터
+
+**"this는 멤버 함수 혹은 생성자를 실행하는 현재 객체"**
+
+한 가지 주의할 점이 있는데, 생성자의 매개변수 이름은 멤버변수 이름과 동일하지 않도록 신경써야 한다는 점이다. 멤버변수와 매개변수의 이름이 동일하게 되면 변수의 우선순위 법칙 때문에 자기자신에다 자신의 값을 대입하는 꼴이 된다. 
+
+만약 두 변수(생성자의 매개변수, 멤버변수) 이름을 굳이 동일하게 사용하고 싶다면 이 때 쓸 수 있는 것이 `this포인터` 이다. 현재 객체의 멤버 변수임을 나타내고자 하는 변수 앞에 `this->`를 붙여 현재 객체의 멤버 변수임을 알린다. **멤버 함수**에 관해서도 동일하게 사용할 수 있다.
+
+```c++
+BasketballPlayer::BasketballPlayer(string name){
+  this->name = name;
+}
+```
+
+
+
+## 소멸자
+
+객체에 따라서는 객체가 소멸되는 시점에서 마무리 작업을 해주어야 하는 경우가 있다. <br>예를 들어, 생성자에게 [동적메모리](https://github.com/Shinye/TIL/blob/master/Algorithm/allocation.md) 를 할당했다면 객체가 소멸될 때 이 동적메모리 공간을 다시 시스템에 반납하여야 한다.(소멸자 안에 동적메모리 공간을 반납하는 코드를 작성해주어야 겠지유..?ㅎㅎ) 만약 반납하지 않고 객체가 소멸되어 버리면 메모리 누수가 일어나게 된다. 소멸자는 객체 소멸 시에 자동적으로 호출되는 함수다.
+
+자세한 사항은 다음의 예시를 통해 확인해보자.
+
+```c++
+class BasketballPlayer{
+private:
+  char *name;
+  string team, position;
+  ...
+public:
+  BasketballPlayer(char *n, string t, string p){
+	name = new char[strlen(n)+1]; // 동적할당함. strlen()함수 : 문자열 길이를 바이트 단위로 반환함.
+    strcpy(name,n);
+    team = t;
+    position = p;    
+  }
+  
+  ~BasketballPlayer(){ // 소멸자 역시 외부에서도 선언될 수 있도록 public안에 넣어주자.
+    delete [] name; // 동적할당에 사용된 메모리 반납.
+  }
+
+int main(){
+  BasketballPlayer player1("Magic Johnson", "LA Lakers", "Point Guard");
+  return 0;
+}
+```
+
+
+
+
+
+
 
 
 
