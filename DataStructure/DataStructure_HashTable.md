@@ -54,7 +54,7 @@ THIS MEANS! (assuming we define our hash table well)
 
 해시테이블의 Bucket 안에는 여러 개의 slot이 있어 충돌이 생겨도 값을 저장할 수 있긴 하지만, slot의 개수는 유한하기 때문에 주어진 slot이 다 차버리면 분명 저장하지 못하는 상황이 온다. 이러한 충돌이 버킷에 할당된 슬롯 수보다 많이 발생하게 되면 버킷에 더 이상 항목을 저장할 수 없게 되는 `오버플로우(overflow)` 가 발생 한다.
 
-*** 동의식별자** :  충돌을 일으킨 서로 다른 식별자 (key1,value1) / (key2,value2)
+*** 동의식별자** :  충돌을 일으킨 서로 다른 식별자 
 
 
 
@@ -81,7 +81,7 @@ THIS MEANS! (assuming we define our hash table well)
 
 그 전에 해시 함수의 종류를 알아보도록 하자.
 
-...
+…종류를 쓰시오...
 
 
 
@@ -103,28 +103,34 @@ THIS MEANS! (assuming we define our hash table well)
 
 2. **Open Addressing (개방 주소법)**
 
-   Open addressing  방식은 index에 대한 충돌 처리에 대해서 Linked List와 같은 추가적인 메모리 공간을 사용하지 않고, hash table array의 빈공간을 사용하는 방법으로, Separate chaining 방식에 비해서 메모리를 덜 사용한다. Open addressing  방식은 크게 세 가지가 존재한다.
+   Open addressing  방식은 index에 대한 충돌 처리에 대해서 Linked List와 같은 추가적인 메모리 공간을 사용하지 않고, hash table array의 빈공간을 사용하는 방법으로, Chaining 방식에 비해서 메모리를 덜 사용한다. Open addressing  방식은 크게 세 가지가 존재한다.
+
+   **1) Linear Probing**
+
+   Linear Probing 방식은 오버플로우가 발생했을 때, 충돌이 발생한 버킷 뒤에 있는 버킷 중에 빈 버킷을 찾아서 그 곳에 데이터를 넣는 방식이다.
+
+   동작 방식의 예는 다음과 같다.
+
+   ![](https://68.media.tumblr.com/b724e2bf3858385b44c91fe302c249b2/tumblr_olpp9yGQXF1v80c66o1_1280.png)
+
+   이처럼 오버플로우가 발생 시 순차적으로 탐색하며 비어있는 버켓을 찾을 때까지 계속 진행된다. 최악의 경우, 탐색을 시작한 위치까지 돌아오게 되어 종료(모든 버켓 순회)하게 된다. 캐쉬의 효율은 높으나 데이터의 클러스터링에 가장 취약하며 이 경우 빈 공간을 탐색하기 위한 탐색 시간이 너무 늘어난다는 단점이 있다.
 
    ​
 
+   **2) Quadratic Probing**
+
+   2차 함수를 이용해 탐색할 위치를 찾는다. 캐쉬의 효율과 클러스터링에 강하며, linear probing과 double hashing probing의 중간 정도 능력을 가진다.<br>조정 함수 f()를 이차함수인 f(i) = i^2와 f(i) = -(i^2) 를 번갈아 사용한다.
+
+   ![](https://68.media.tumblr.com/7dc969b1a136378c56649dc25cacc517/tumblr_olppt7qc891v80c66o1_1280.png)
 
 
 
+​	**3) Double Hashing**
+
+​	클러스터 방지를 위해, 두 개의 해시 함수를 준비하는 방식. 하나는 최초의 주소를 얻을 때, 그리고 또 다른 하나는 충돌이 일어났을 때 probing 이동 폭을 얻기 위해 사용.
 
 
 
 ### 참고 URL
 
-[https://www.youtube.com/watch?v=tjtFkT97Xmc](https://www.youtube.com/watch?v=tjtFkT97Xmc)
-
-[http://core.ewha.ac.kr/publicview/C0101020141210102600802227?vmode=f](http://core.ewha.ac.kr/publicview/C0101020141210102600802227?vmode=f)
-
-http://emzei.tistory.com/128
-
-http://1ambda.github.io/algorithm/design-and-analysis-part1-6/
-
-http://eunpyeonghong.tumblr.com/post/152986466964/%ED%95%B4%EC%8B%9C%ED%85%8C%EC%9D%B4%EB%B8%94hash-table
-
-https://en.wikipedia.org/wiki/Open_addressing
-
-http://bcho.tistory.com/1072
+[https://www.youtube.com/watch?v=tjtFkT97Xmc](https://www.youtube.com/watch?v=tjtFkT97Xmc)<br>[http://core.ewha.ac.kr/publicview/C0101020141210102600802227?vmode=f](http://core.ewha.ac.kr/publicview/C0101020141210102600802227?vmode=f)<br>http://emzei.tistory.com/128<br>http://1ambda.github.io/algorithm/design-and-analysis-part1-6/<br>http://eunpyeonghong.tumblr.com/post/152986466964/%ED%95%B4%EC%8B%9C%ED%85%8C%EC%9D%B4%EB%B8%94hash-table<br>https://en.wikipedia.org/wiki/Open_addressing<br>http://bcho.tistory.com/1072<br>http://egloos.zum.com/sweeper/v/925740
