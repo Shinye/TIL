@@ -54,7 +54,7 @@ THIS MEANS! (assuming we define our hash table well)
 
 해시테이블의 Bucket 안에는 여러 개의 slot이 있어 충돌이 생겨도 값을 저장할 수 있긴 하지만, slot의 개수는 유한하기 때문에 주어진 slot이 다 차버리면 분명 저장하지 못하는 상황이 온다. 이러한 충돌이 버킷에 할당된 슬롯 수보다 많이 발생하게 되면 버킷에 더 이상 항목을 저장할 수 없게 되는 `오버플로우(overflow)` 가 발생 한다.
 
-*** 동의식별자** :  충돌을 일으킨 서로 다른 식별자 
+*동의식별자 :  충돌을 일으킨 서로 다른 식별자 
 
 
 
@@ -79,11 +79,9 @@ THIS MEANS! (assuming we define our hash table well)
 
 ...하지만 이건 꿈 같은 일이니^_ㅠ 우리는 충돌과 오버플로우를 방지할 여러 해결책들을 알아갈 필요가 있다.
 
-그 전에 해시 함수의 종류를 알아보도록 하자.
+해시함수는 이미 잘 만들어진 함수를 차용해 쓰는게 좋다. 다행히 좋은 해쉬 함수들이 나와 있으며 Jenkins의 One-at-a-time 해쉬 함수가 대표적인 예라 할 수 있다. 32/64비트 int형의 괜찮은 해쉬 함수를 첨부한다. ---> [int_hash_func.txt](http://pds4.egloos.com/pds/200702/14/32/int_hash_func.txt)
 
-…종류를 쓰시오...
-
-
+<br>
 
 ### Overflow의 처리
 
@@ -99,7 +97,7 @@ THIS MEANS! (assuming we define our hash table well)
 
    ![](https://68.media.tumblr.com/5504f94b9681a018c5e26beae64f360e/tumblr_olob6oTTui1v80c66o1_540.png)
 
-
+<br>
 
 2. **Open Addressing (개방 주소법)**
 
@@ -107,9 +105,7 @@ THIS MEANS! (assuming we define our hash table well)
 
    **1) Linear Probing**
 
-   Linear Probing 방식은 오버플로우가 발생했을 때, 충돌이 발생한 버킷 뒤에 있는 버킷 중에 빈 버킷을 찾아서 그 곳에 데이터를 넣는 방식이다.
-
-   동작 방식의 예는 다음과 같다.
+   Linear Probing 방식은 오버플로우가 발생했을 때, 충돌이 발생한 버킷 뒤에 있는 버킷 중에 빈 버킷을 찾아서 그 곳에 데이터를 넣는 방식이다.<br>동작 방식의 예는 다음과 같다.
 
    ![](https://68.media.tumblr.com/b724e2bf3858385b44c91fe302c249b2/tumblr_olpp9yGQXF1v80c66o1_1280.png)
 
@@ -125,12 +121,58 @@ THIS MEANS! (assuming we define our hash table well)
 
 
 
-​	**3) Double Hashing**
+**3) Double Hashing**
 
-​	클러스터 방지를 위해, 두 개의 해시 함수를 준비하는 방식. 하나는 최초의 주소를 얻을 때, 그리고 또 다른 하나는 충돌이 일어났을 때 probing 이동 폭을 얻기 위해 사용.
+클러스터 방지를 위해, 두 개의 해시 함수를 준비하는 방식. 하나는 최초의 주소를 얻을 때, 그리고 또 다른 하나는 충돌이 일	어났을 때 probing 이동 폭을 얻기 위해 사용.
+
+
+
+**4) 재해싱**
+
+- 해시테이블이 점점 가득 차게 되면 클러스터링으로 인해 연산시간이 길어지는 순간이 온다. => 재해싱이 필요한 순간.	
+- 원래 해시테이블의 부하 비율(전체 슬롯에서 사용중인 슬롯 비율 : load factor)가 어느 정도 커지면 새로운 해시함수와 2배 이상의 `소수 크기`의 새로운 해시테이블을 생성한다. 원래 해시테이블의 모든 식별자들을 새로운 해시테이블에 재해싱한다.
+
+<br>
+
+탐사 방식에 따라 open-addressing 해쉬의 성능이 달라지지만, 가장 치명적인 영향을 미치는 요소는 바로 해쉬 테이블의 load factor(전체 슬롯에서 사용중인 슬롯 비율. 해시테이블에 들어있는 오브젝트 수를, 버킷 수로 나눈 것.)이다. Load factor가 100%로 증가할수록 데이터를 찾거나 삽입하기 위해 필요한 탐사 횟수는 비약적으로(dramatically) 증가한다. 일단 테이블이 꽉 차게 되면 probing이 실패하여 끝나버리기도 한다. 아래 표는 load factor에 따른 평균 성공 탐색수와 실패수이다.
+
+![](http://pds5.egloos.com/pds/200702/15/32/d0014632_1002394.jpg)
+
+위 표와 같이 아무리 좋은 해쉬 함수를 쓰더라도 일반적으로 load factor는 80%로 제한된다.(자바에서의 Hashmap은 기본 load factor threshold가 75%이다) 클러스터링에 가장 취약한 linear probing 방식이 load factor가 높을수록 가장 급격하게 성능 저하가 발생하는 것을 확인할 수 있다. 따라서 load factor가 임계점을 넘어 큰 경우의 성능은
+
+double hashing > quadratic > linear 의 순서다.
+
+물론 질 낮은 해쉬 함수는 엄청난 클러스터링을 유발함으로써 아주 낮은 load factor에도 해쉬 테이블의 성능을 상당히 낮아지게 한다. 어떤 문제가 해쉬 함수의 클러스터링을 유발하는지 알기는 쉽지 않아도, 해쉬 함수가 심각한 클러스터링을 유발하게 하는 것은 상당히 쉽다. 그냥 잘 만들어진, 그리고 많은 사람들에 의해 충분히 검증된 공개된 함수들을 가져다 쓰자 :-)
+
+
+
+### Chaining vs Open Addressing
+
+[여기](http://egloos.zum.com/sweeper/v/925740)의 설명이 아주 자세하니 여기있는 걸 먼저 읽은 후 다시 보자.
+
+Chaining은 Open Addressing에 비해 다음과 같은 장점을 갖는다.
+
+- 삭제 작업이 간단하다. 삭제 작업이 빈번하다면 *open addressing* 보다는 *chaining* 이 낫다.
+- **chaining** 은 클러스터링에 거의 영향을 받지 않아 충돌의 최소화만 고려하면 된다. 반면 **open addressing** 은 클러스터링까지 피해야 하므로 해쉬함수를 구현하기가 쉽지 않다.
+- *load factor*(전체 슬롯에서 사용중인 슬롯 비율) 가 높아져도 성능 저하가 선형적이다. 아래 그림에서 볼 수 있듯이, *open-addressing* 방법처럼 급격히 *lookup time* 이 늘지 않는다. 따라서 테이블 확장을 상당히 늦출 수 있다.
+
+![](http://pds5.egloos.com/pds/200702/14/32/d0014632_11023351.jpg)
+
+<br>반면 Open Addressing이 Chaining에 비해 가지는 장점은 다음과 같다.
+
+- open-addressing 방식은 테이블에 모두 저장될 수 있고 캐쉬 라인에 적합할 수 있을 정도로 데이터의 크기가 작을수록 성능이 더 좋아진다. 메모리 비용을 아끼려면, 이 방법이 적합하다.
+- 반면 테이블의 높은 load factor가 예상되거나, 데이터가 크거나, 데이터의 길이가 가변일 때 chained 해쉬 테이블은 open-addressing 방식보다 적어도 동등하거나 훨씬 더 뛰어난 성능을 보인다. 삭제가 중요하고, 빈번한 연산이라면 *chianing* 이 더 낫다.
+
+
 
 
 
 ### 참고 URL
 
-[https://www.youtube.com/watch?v=tjtFkT97Xmc](https://www.youtube.com/watch?v=tjtFkT97Xmc)<br>[http://core.ewha.ac.kr/publicview/C0101020141210102600802227?vmode=f](http://core.ewha.ac.kr/publicview/C0101020141210102600802227?vmode=f)<br>http://emzei.tistory.com/128<br>http://1ambda.github.io/algorithm/design-and-analysis-part1-6/<br>http://eunpyeonghong.tumblr.com/post/152986466964/%ED%95%B4%EC%8B%9C%ED%85%8C%EC%9D%B4%EB%B8%94hash-table<br>https://en.wikipedia.org/wiki/Open_addressing<br>http://bcho.tistory.com/1072<br>http://egloos.zum.com/sweeper/v/925740
+[https://www.youtube.com/watch?v=tjtFkT97Xmc](https://www.youtube.com/watch?v=tjtFkT97Xmc)<br>[http://core.ewha.ac.kr/publicview/C0101020141210102600802227?vmode=f](http://core.ewha.ac.kr/publicview/C0101020141210102600802227?vmode=f)<br>http://emzei.tistory.com/128<br>http://1ambda.github.io/algorithm/design-and-analysis-part1-6/<br>http://eunpyeonghong.tumblr.com/post/152986466964/%ED%95%B4%EC%8B%9C%ED%85%8C%EC%9D%B4%EB%B8%94hash-table<br>https://en.wikipedia.org/wiki/Open_addressing<br>http://bcho.tistory.com/1072<br>http://egloos.zum.com/sweeper/v/925740<br>http://d2.naver.com/helloworld/831311
+
+
+
+코드 짜는 법<br>
+
+http://www.tutorialspoint.com/data_structures_algorithms/hash_data_structure.htm<br>http://www.cs.rmit.edu.au/online/blackboard/chapter/05/documents/contribute/chapter/05/linear-probing.html
