@@ -1,5 +1,7 @@
 #Hash Table
 
+구현 코드 링크 : [https://github.com/Shinye/TIL/blob/master/DataStructure/hashtable.cpp](https://github.com/Shinye/TIL/blob/master/DataStructure/hashtable.cpp)
+
 " 해시테이블 : 해싱을 통한 검색 - key에 의해 key의 value를 찾음 "
 
 해시의 사전적 의미로는 고기, 야채 등을 잘게 썬다는 뜻을 가지고 있다.<br>위의 사전적 의미처럼 컴퓨터공학적 관점에서는 큰 데이터를 작은 크기로 바꾸어 주는 의미로 쓰인다. 그래서 주로 암호학, 보안학 관련해서 사용될 땐 패스워드를 해싱 후 저장하는 방법을 쓰기도 한다.
