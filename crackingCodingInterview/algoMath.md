@@ -98,9 +98,8 @@ bool primeNaive(int n){
 using namespace std;
 
 int main() {
-    int primeArr[100] = {0}; // 소수 저장    
     int aNumberOfPn = 0; // 소수의 개수
-    bool flag[101]; // 지워졌으면 true
+    bool flag[101] = {0}; // 지워졌으면 true
     int n = 100; // 100까지의 소수
     
     /* 소수의 정수배인 수들을 솎아냄
@@ -109,23 +108,13 @@ int main() {
      * i*i 부터 시작한다 */
     for(int i=2; i<=n; i++){ // 2부터 N까지 모든 소수를 구하는 것이기 때문에, 바깥 for문 i를 n까지 돌린다.
         if(flag[i] == false){
-            cout << "i : " << i << '\n'; // 소수 출력
-            primeArr[aNumberOfPn++] = i;
-            //cout <<primeArr[aNumberOfPn++] << '\n'; // 이렇게 선언하면 출력값 이상해짐...왜?????
-            int temp = i;
-            
+            cout << "i : " << i << '\n';
             for(int j=i*i; j<=n; j+=i){ // j+=i -> j=j+i // i배수 돈다..
                 flag[j] = true;
             }
         }
-        
     }
     return 0;
 }
-
 ```
-
-
-
-## 확률
 
