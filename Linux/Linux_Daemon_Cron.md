@@ -36,6 +36,53 @@ Crontab 파일의 문법은 다음과 같다.<br>
 
 ![https://68.media.tumblr.com/3dab35ceac996169eb24a88bf91199ef/tumblr_oks1qmawsn1v80c66o1_400.png](https://68.media.tumblr.com/3dab35ceac996169eb24a88bf91199ef/tumblr_oks1qmawsn1v80c66o1_400.png)
 
+```shell
+* * * * * /root/every_1min.sh
+# 매 1분마다 /root/every_1min.sh 를 수행 (하루에 1440회)
+```
+
+
+```shell
+15,45 * * * * /root/every_30min.sh
+# 매시 15분, 45분에 /root/every_30min.sh 를 수행 (하루에 48회)
+```
+
+
+```shell
+*/10 * * * * /root/every_10min.sh
+# 10분마다 /root/every_10min.sh 를 수행 (하루에 144회)
+```
+
+
+```shell
+0 2 * * * /root/backup.sh
+# 매일 02:00에/root/backup.sh 를 수행 (하루에 1회)
+```
+
+
+```shell
+30 */6 * * * /root/every_6hours.sh
+# 매 6시간마다 수행(00:30, 06:30, 12:30, 18:30)
+```
+
+
+```shell
+30 1-23/6 * * * /root/every_6hours.sh
+# 1시부터 매 6시간마다 수행(01:30, 07:30, 13:30, 19:30)
+```
+
+
+```shell
+0 8 * * 1-5 /root/weekday.sh
+# 평일(월요일~금요일) 08:00
+```
+
+
+```shell
+0 8 * * 0,6 /root/weekend.sh
+# 주말(일요일, 토요일) 08:00
+```
+
 
 
 ### 예시
@@ -64,3 +111,8 @@ crontab 파일을 저장하고 편집기를 나오면 `crontab: installing new c
 
 `cat date.log` 명령어를 통해 확인해본 결과 1분에 한 번씩 `date` 명령어의 결과값이 정상적으로 출력되고 있음을 알 수 있다.
 
+
+
+### 참고 URL
+
+[http://zetawiki.com/wiki/%EB%A6%AC%EB%88%85%EC%8A%A4_%EB%B0%98%EB%B3%B5_%EC%98%88%EC%95%BD%EC%9E%91%EC%97%85_cron,_crond,_crontab](http://zetawiki.com/wiki/%EB%A6%AC%EB%88%85%EC%8A%A4_%EB%B0%98%EB%B3%B5_%EC%98%88%EC%95%BD%EC%9E%91%EC%97%85_cron,_crond,_crontab)
