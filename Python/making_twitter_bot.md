@@ -67,11 +67,11 @@ module을 import하는 방법에는 여러가지가 있다. 방법에 따라 nam
    print randint(0,100)
    ```
 
-3. **from (module_name) import * **
+3. __from (module_name) import * __
 
    2 와 동일하지만, module 에 있는 모든 name 을 직접 현재 namespace 로 가져오게 된다. 이렇게 되면 namespace 가 섞이게 되어서 일반적으로 사용을 권장하지 않는다. 차라리 첫번째 타입(1번)의 import 를 사용하는 것이 좋다.
 
-<br>
+
 
 ### _ _ main _ _  namespace
 
@@ -93,17 +93,100 @@ if __name__ == "__main__":
 
 <br><br>
 
-## 2) 조건문, 반복문, 비교연산자 
+## 2) if문, 비교연산자, 반복문 
+
+### if문
+
+기존의 다른 언어(C++, JAVA, JS …) 들과 동일하지만 그 작성 방법에 있어 조금 차이점이 있어 기록해둔다.
+
+```python
+if a > b :
+    print "case 1"
+
+elif a == b : #기존의 다른 언어들에서 else if라고 썼던 것과는 달리 elif라고 써준다.
+    print "case 2"
+
+else:
+    print "case c"
+```
+
+
+
+### 비교연산자 (and, or, not)
+
+비교연산자 역시 기존의 다른 언어들과 동일한 표기법을 사용한다. 하지만 예외의 케이스가 있다.
+
+| 기존의 연산자 형식 | 파이썬 연산자 형식 |          설명          |
+| :--------: | :--------: | :------------------: |
+|  x \|\| y  |   x or y   | x와 y 둘중에 하나만 참이면 참이다 |
+|   x && y   |  x and y   |   x와 y 모두 참이어야 참이다   |
+|            |   not x    |     x가 거짓이면 참이다      |
+
+
+
+### 반복문(for문)
+
+파이썬에서의 for문의 기본적인 구조는 다음과 같다.
+
+```python
+for 변수 in 리스트(또는 문자열, 튜플 ...):
+    수행할 문장1
+    수행할 문장2
+    
+# 전형적인 for문
+test_list = ['one', 'two', 'three'] 
+for i in test_list:
+    print(i)
+    
+a = [(1,2), (3,4), (5,6)]
+for (first, last) in a:
+    print(first + last)
+```
+
+
+
+일반적으로 다른 언어들에서 쓰던 for문 구조는 python에서는 다음과 같이 작성할 수 있다.
+
+```javascript
+// 기존의 다른 언어 (JavaScript)
+for(var i=0; i<10; i++){
+  console.log('hello')
+}
+```
+
+```python
+# Python
+for i in range(0,10): #range(a,b) : a부터 b미만의 숫자를 포함하는 range객체
+    print 'hello'
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
 ## 3) 문자열 자르기
 
+
+
 ## 4) 파싱, 파서
+
+
 
 ## 5) freeze
 
+
+
 ## 6) 함수에서 한 개 이상의 값을 return 하기
+
+
 
 ## 7) 기타 외부 modules
 
