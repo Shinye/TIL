@@ -162,35 +162,136 @@ for i in range(0,10): #range(a,b) : a부터 b미만의 숫자를 포함하는 ra
 
 
 
-
-
-
-
-
-
-
-
-
-
 ## 3) 문자열 자르기
+
+`문자열객체.split('기준')` <br>문자열 객체에서 원하는 기준에 따라 문자열을 자를 수 있다. 다음의 예시를 통해 확인해보자.
+
+```python
+string1 = "hello world"
+string1.split(' ') # ['hello','world']
+string1.split(' ')[0] # 'hello'
+string1.split(' ')[1] # 'world'
+
+string2 = "this/is/string"
+string2.split('/') # ['this','is','string']
+string2.split('/')[0] # 'this'
+string2.split('/')[1] # 'is'
+string2.split('/')[2] # 'string'
+```
 
 
 
 ## 4) 파싱, 파서
 
+### 파싱
 
+- 문장을 그것을 이루고 있는 구성 성분으로 분해하고, 그들 사이의 위계 관계를 분석하여 문장의 구조를 결정하는 것
+- 일련의 문자열을 의미있는 토큰(token)으로 분해하고, 이들로 이루어진 파스 트리(parse tree)를 만드는 과정
 
-## 5) freeze
+### 파서
+
+- 파싱을 수행하는 프로그램 모듈
+
+- 인터프리터 나 [컴파일러](https://github.com/Shinye/TIL/blob/master/Algorithm/allocation.md) 의 구성요소 중 하나
+
+  __인터프리터? __
+
+  해석기. 프로그래밍 언어의 소스코드를 바로 실행하는 컴퓨터 프로그램 혹은 환경. 한 줄 한 줄 읽어가며 바로바로 처리됨.
+
+## 5) pip requirements & freeze
+
+보통 파이썬 가상환경을 통해 필요한 패키지들을 관리하고, 패키지는 파이썬 패키지 관리자인 pip를 통하여 설치한다.<br>보통 `pip install 패키지명` 명령어를 통해 하나하나 설치하는 경우가 일반적이다. 하지만 한꺼번에 설치할 패키지가 많을 경우  requirements.txt를 만들어 패키지 리스트를 이 파일에서 관리하고 이 파일을 통해 pip 설치 수행하는 것이 더 좋은 방법이다.
+
+```python
+pip install -r requirements.txt
+```
+
+하지만 경우에 따라 requirements.txt를 미리 만들지 않고, 개발서버의 가상환경에 여러 패키지를 이미 설치했을 수도 있다. 이런 경우는 아래와 같은 pip freeze 명령을 사용하여 requirements.txt 파일을 만들 수 있다.
+
+(웹서버 heroku에 동일한 가상환경을 주어주기 위해 프로젝트 루트 디렉토리에 requirements.txt파일을 만들고, pip freeze명령어를 통해 requirements.txt에 현재 내 가상환경에 설치 된 패키지 목록을 입력시켰다.)
+
+```python
+pip freeze > requirements.txt 
+# pip freeze의 결과물이 터미널에 출력되는게 아닌 requirements.txt에 출력되는 명령어.
+# 출력결과
+appdirs==1.4.3
+APScheduler==3.3.1
+BeautifulSoup==3.2.1
+beautifulsoup4==4.5.3
+bs4==0.0.1
+funcsigs==1.0.2
+futures==3.0.5
+oauthlib==2.0.1
+packaging==16.8
+pyparsing==2.2.0
+pytz==2016.10
+requests==2.13.0
+requests-oauthlib==0.8.0
+six==1.10.0
+tweepy==3.5.0
+tzlocal==1.3
+```
 
 
 
 ## 6) 함수에서 한 개 이상의 값을 return 하기
 
+```python
+# 1. Dictionary 사용
+def foo(x):
+    y0 = x+1
+    y1 = x+2
+    y2 = x+3
+    return {'y0':y0, 'y1':y1, 'y2':y2}
+
+# 2. list 사용
+def foo(x):
+    result = [x + 1]
+  	result.append(x * 3)
+  	result.append(y0 ** y3)
+  	return result
+```
+
+## 7) 파이썬 인코딩 관련
+
+ㅇㅇㅇ
 
 
-## 7) 기타 외부 modules
+
+## 8) 기타 외부 modules
 
 ### Requests
+
+Python에는 `requests` 라는 유명한 http request 라이브러리가 있다. 
+
+0. 설치하기
+
+   ```python
+   pip install requests
+   ```
+
+1. 기본적인 사용 방법
+
+   ```python
+   import requests
+   URL = "http://www.naver.com"
+   req = requests.get(URL) #HTTP GET Request
+   html = req.text #HTML 소스 가져오기
+
+   # BeautifulSoup으로 html소스를 python객체로 변환하기
+   # 첫 인자는 html소스코드, 두 번째 인자는 어떤 parser를 이용할지 명시.
+   # 이 글에서는 Python 내장 html.parser를 이용했다.
+   # 이제 soup 객체에서 원하는 정보를 찾아낼 수 있다.
+   soup = BeautifulSoup(html, 'html.parser')
+   ```
+
+   ![https://68.media.tumblr.com/e29cf4d4d6cddbf6e4d7d5cea41f8c4b/tumblr_on0693monj1w8w3y8o1_1280.png](https://68.media.tumblr.com/e29cf4d4d6cddbf6e4d7d5cea41f8c4b/tumblr_on0693monj1w8w3y8o1_1280.png)
+
+   다음과 같이 잘 됨을 확인할 수 있다.
+
+   더 많은 기능들이 있지만 이번 프로젝트에는 다음과 같은 개념만 활용하였다.
+
+
 
 ### BeautifulSoup
 
