@@ -254,7 +254,7 @@ def foo(x):
 
 ## 7) 파이썬 인코딩 관련
 
-ㅇㅇㅇ
+작성하시오….ㅇ<-<
 
 
 
@@ -266,9 +266,9 @@ Python에는 `requests` 라는 유명한 http request 라이브러리가 있다.
 
 0. 설치하기
 
-   ```python
-   pip install requests
-   ```
+    ```python
+    pip install requests
+    ```
 
 1. 기본적인 사용 방법
 
@@ -277,12 +277,6 @@ Python에는 `requests` 라는 유명한 http request 라이브러리가 있다.
    URL = "http://www.naver.com"
    req = requests.get(URL) #HTTP GET Request
    html = req.text #HTML 소스 가져오기
-
-   # BeautifulSoup으로 html소스를 python객체로 변환하기
-   # 첫 인자는 html소스코드, 두 번째 인자는 어떤 parser를 이용할지 명시.
-   # 이 글에서는 Python 내장 html.parser를 이용했다.
-   # 이제 soup 객체에서 원하는 정보를 찾아낼 수 있다.
-   soup = BeautifulSoup(html, 'html.parser')
    ```
 
    ![https://68.media.tumblr.com/e29cf4d4d6cddbf6e4d7d5cea41f8c4b/tumblr_on0693monj1w8w3y8o1_1280.png](https://68.media.tumblr.com/e29cf4d4d6cddbf6e4d7d5cea41f8c4b/tumblr_on0693monj1w8w3y8o1_1280.png)
@@ -292,9 +286,139 @@ Python에는 `requests` 라는 유명한 http request 라이브러리가 있다.
    더 많은 기능들이 있지만 이번 프로젝트에는 다음과 같은 개념만 활용하였다.
 
 
-
 ### BeautifulSoup
 
+Requests는 좋은 라이브러리이지만, html을 ‘의미있는’, 즉 Python이 이해하는 객체 구조로 만들어주지는 못한다. 위에서 req.text는 python의 문자열(str)객체를 반환할 뿐이기 때문에 정보를 추출하기가 어렵다.
+
+따라서 [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)을 이용하게 된다. 이 BeautifulSoup은 추출해낸 html 코드를 Python이 이해할 수 있는 객체 구조로 `Parsing`하는 역할을 맡고 있고, 이 라이브러리를 통해 제대로 '의미있는' 정보들을 추출해낼 수 있다.
+
+아래 코드에서는 BeautifulSoup 라이브러리를 사용해 문서를 파싱하고 그 결과를 출력하는 과정을 확인할 수 있다.<brsprettify 함수는 BeautifulSoup 에서 파싱 처리한 파서 트리를 유니코드 형태로 리턴하는 함수이다.
+
+```python
+# BeautifulSoup으로 html소스를 python객체로 변환하기.
+# 첫 인자는 html소스코드, 두 번째 인자는 어떤 parser를 이용할지 명시.
+# 여기선 Python 내장 파서인 html.parser를 이용했다.
+# 이제 soup 객체에서 원하는 정보를 찾아낼 수 있다.
+soup = BeautifulSoup(html, 'html.parser') #soup 객체 내에서 데이터를 탐색할 수 있다.
+
+print(soup.prettify())
+# <html>
+#  <head>
+#   <title>
+#    The Dormouse's story
+#   </title>
+#  </head>
+#  <body>
+#   <p class="title">
+#    <b>
+#     The Dormouse's story
+#    </b>
+#   </p>
+#   <p class="story">
+#    Once upon a time there were three little sisters; and their names were
+#    <a class="sister" href="http://example.com/elsie" id="link1">
+#     Elsie
+#    </a>
+#    ,
+#    <a class="sister" href="http://example.com/lacie" id="link2">
+#     Lacie
+#    </a>
+#    and
+#    <a class="sister" href="http://example.com/tillie" id="link2">
+#     Tillie
+#    </a>
+#    ; and they lived at the bottom of a well.
+#   </p>
+#   <p class="story">
+#    ...
+#   </p>
+#  </body>
+# </html>
+```
+
+html 문서를 구성하는 요소나 속성 값들을 간단하게 탐색하거나 검색할 수 있다. 예제 코드에서의 find_all('a') 함수는 a 태그를 모두 찾아내 리스트를 반환하고 있으니 여기다 for ~ in 구문을 이용해 원하는 조건의 요소를 찾을 수도 있겠다.<br>get_text() 메소드를 이용해 텍스트만 뽑아 낼수도 있다.
+
+```python
+# soup 객체의 데이터 탐색 
+print(soup.title) 
+# <title>The Dormouse's story</title> 
+
+print(soup.title.name) 
+# u'title' 
+
+print(soup.title.string) 
+# u'The Dormouse's story' 
+
+print(soup.title.parent.name) 
+# u'head' 
+
+print(soup.p) 
+# <p class="title"><b>The Dormouse's story</b></p> 
+
+print(soup.p['class']) 
+# u'title' 
+
+print(soup.a) 
+# <a class="sister" href="http://example.com/elsie" id="link1">Elsie</a> 
+
+print(soup.find_all('a')) # find_all은 함수!!
+# [<a class="sister" href="http://example.com/elsie" id="link1">Elsie</a>, 
+# <a class="sister" href="http://example.com/lacie" id="link2">Lacie</a>, 
+# <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>]
+
+print(soup.find(id="link3")) 
+# <a class="sister" href="http://example.com/tillie" id="link3">Tillie</a>
+
+################################################################################## 
+for link in soup.find_all('a'): 
+    print(link.get('href')) 
+# http://example.com/elsie 
+# http://example.com/lacie 
+# http://example.com/tillie ################################################################################## 
+
+print(soup.get_text()) 
+```
+
+저는 코드를 짤 때 다음과 같이 짰습니다.
+
+![https://68.media.tumblr.com/f198992f8005d83366b0bc5dbdd0bdee/tumblr_on2c29joBH1w8w3y8o1_1280.png](https://68.media.tumblr.com/f198992f8005d83366b0bc5dbdd0bdee/tumblr_on2c29joBH1w8w3y8o1_1280.png)
+
+
+
 ### APScheduler
+
+[Advanced Python Scheduler](http://apscheduler.readthedocs.io/en/3.0/userguide.html)의 약자. 파이썬 코드가 주기적으로 동작 할 수 있게 도와주는 파이썬 라이브러리. 프로그램 작업을 하다보면 호스트 시스템에서 동작하는 시간 관련 스케줄러 작업이 필요할 경우가 있다.
+
+__APScheduler 수행방식(3가지)__
+
+- Cron 방식 - Cron 표현식으로 Python code 를 수행
+- Date 방식 - 특정 날짜에 Python code 를 수행
+- Interval 방식 - 일정 주기로 Python code 를 수행
+
+
+
+__Job Store__
+
+APScheduler는 Job(Python Code)을 저장해두고 주기적으로 실행한다. 이 때 4가지 저장방식을 지원한다.
+
+- Memory(기본)
+- SQLAlchemy - RDBMS 에서 동작
+- MongoDB
+- Redis
+
+
+
+__Scheduler 종류__
+
+- [Blocking Scheduler](http://apscheduler.readthedocs.io/en/3.0/modules/schedulers/blocking.html#apscheduler.schedulers.blocking.BlockingScheduler) 단일 Job 수행 시
+- [Background Scheduler](http://apscheduler.readthedocs.io/en/3.0/modules/schedulers/background.html#apscheduler.schedulers.background.BackgroundScheduler) 다중 Job 수행 시. background 에서 Job 들이 수행되며, 여러 Job 들을 등록하여 동시에 수행할 수 있다.
+
+
+
+크롤링 튜토리얼을 따라하면서 Blocking Scheduler를 사용한 예시입니다. 10초에 한 번씩 scraping 함수를 실행시켰습니다.
+
+![https://68.media.tumblr.com/5f0e3fb3b80cc80fdad4f77d1074fd52/tumblr_on2dopyvM91w8w3y8o1_1280.png](https://68.media.tumblr.com/5f0e3fb3b80cc80fdad4f77d1074fd52/tumblr_on2dopyvM91w8w3y8o1_1280.png)
+
+
 
 ### Tweepy
