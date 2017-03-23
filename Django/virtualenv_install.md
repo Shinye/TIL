@@ -1,4 +1,4 @@
-#VirtualEnv 설치 (OS X)
+# VirtualEnv 설치 (OS X)
 
 (3년 전 윈도우 OS를 쓰던 시절 처음 파이썬을 공부해보고자 마음을 먹었던 때, 가상환경 설치가 너무 어려워 일주일 가까이 헤맸었던 기억이 난다...결국 헤맴의 원인은 환경변수 오타였고 허탈함과 함께 모든 전의를 상실했던 아련한 추억이..ㅎㅎㅎㅜ.ㅜ)
 <br><br>
@@ -8,7 +8,7 @@ Python을 주력 언어로 개발을 하다 보면 다양한 라이브러리(패
 <br>
 
 OS X 기준으로 virtualenv를 다운받기 위해선 사전에 작업해주어야 하는 것들이 있다.<br>
-###1. Homebrew 설치 <br>
+### 1. Homebrew 설치 <br>
  OS X(맥)을 쓸 때 가장 좋은 점은 루비나 파이썬 등이 미리 OS에 포함이 되어 있다는 것이다. 아쉬운 점이라면 최신 버전은 아니라는 것. 이처럼 맥에서는 기본적으로 파이썬이 설치가 되어 있다. 하지만 디폴트로 설치되어 있는 파이썬 버전이 구버전일 상황이 많기 때문에 파이썬을 새로 까는 것이 좋다. 따라서 파이썬을 설치하기 위해 Homebrew가 필요하다.<br>
 
  **Homebrew란?**<br>
@@ -21,7 +21,7 @@ OS X 기준으로 virtualenv를 다운받기 위해선 사전에 작업해주어
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 <br>
-###2. Python, pip 설치
+### 2. Python, pip 설치
 파이썬은 다음과 같이 설치할 수 있다.<br>
 
 ```
@@ -49,7 +49,7 @@ $ pip -V
 ```
 
 
-###3. virtualenv / virtualenvwrapper 설치
+### 3. virtualenv / virtualenvwrapper 설치
 아래의 명령어로 간단하게 두 패키지를 설치할 수 있다.
 
 ```
@@ -68,7 +68,7 @@ $ sudo pip install virtualenv virtualenvwrapper
 
 virtualenvwrapper는 virtualenv의 사용을 보다 편리하게 해주는 도구의 집합이다. <br>가상환경을 생성, 삭제할 수 있으며 한 가상환경에서 다른 가상환경으로 명령어(workon [가상환경 이름])를 통해 넘어갈 수 있는 등의 기능을 제공한다.
 
-###3-1. virtualenvwrapper 설정하기
+### 3-1. virtualenvwrapper 설정하기
 VirtualEnv를 사용하기 위해서는 `source`[^source] 를 이용해 가상환경에 진입한다. 그러나, 이 진입 방법은 가상환경이 설치된 위치로 이동해야되는 것 뿐 아니라 가상환경이 어느 폴더에 있는지 일일이 사용자가 기억해야 하는 단점이 있다. 이를 보완하기 위해 virtualenvwrapper를 사용한다.<br>
 
 또한, VirtualenvWrapper를 사용할 경우 **터미널이 현재 위치한 경로와 관계없이** 가상환경을 활성화할 수 있다는 장점이 있다. <br>
@@ -103,7 +103,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 $ find /usr -name virtualenvwrapper.sh 
 ```
 
-###3-2. virtualenvwrapper 기본 명령어들
+### 3-2. virtualenvwrapper 기본 명령어들
 
 1) 가상환경 만들기
 
