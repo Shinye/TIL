@@ -1,9 +1,9 @@
-#IO Redirection
+# IO Redirection
 
 Input / Output / Redirection -> 방향을 바꾼다<br>
 기존의 아웃풋은 모니터에 바로 출력이 되지만, 모니터가 아닌 다른 곳에 결과 값을 출력시키는 것을 의미 (명령어의 실행 결과 값을 새로운 파일에 출력하는 방법 등…)<br><br>
 
-##Output
+## Output
 예를 들어,<br>
 
 ```
@@ -14,9 +14,9 @@ ls -l의 결과가 모니터에 출력되는 대신 result.txt 라는 파일 안
 **출력되는 방향을 다른 곳으로 돌려 다른 파일에 저장되게 함.** 이를 `Redirection` 이라 한다.
 
 ![Unix Programs](https://68.media.tumblr.com/1979a24777f8cbd1e4a051fec4be1a69/tumblr_oka802OqJ11v80c66o1_540.png)<br>
-####Unix Process
+#### Unix Process
 명령어(ls, mkdir, apt get, ps(process list)…) , 프로세스(하드디스크 위에 저장되어있던 프로그램이 실행을 위해 메모리 위에 적재되어 CPU에 의해 실행되는 프로그램)
-####input
+#### input
 - Program arguments (ex. ls `-al` : `-al`은 ls라는 프로그램에 입력으로 들어오는 입력 값. 파일 목록 중 숨김파일까지 보여주며(-a), 파일의 권한까지 보여줌(-l) 이라는 옵션. 이 경우는 정확히는 Command-line Arguments)
 - Environment variables (환경변수)
 - Standard input (CLI 환경에서의 일반적인 데이터 입력)
@@ -73,13 +73,7 @@ $ */1 * * * * date 2>> error.log
 # >>도 마찬가지로 앞에 1이 생략되어 있는 것이므로 에러 로그를 누적하고 싶다면 2>>를 작성해주면 된다.
 ```
 
-
-
-
-
-
-
-##Input
+## Input
 
 프로그램은, 컴퓨터의 하드디스크나 SSD에 저장되어있는 코드를 보통 `프로그램`이라 부름.<br>
 이 프로그램이 실행되면, 그 실행되고 있는 상태를 `프로세스`라고 한다.
