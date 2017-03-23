@@ -1,4 +1,4 @@
-#Linux 백그라운드 실행
+# Linux 백그라운드 실행
 
 
 
@@ -38,7 +38,7 @@ ls -alR / > result.txt 2> error.log &
 ```
 
 
-###KILL 명령어에 관하여
+### KILL 명령어에 관하여
 **1. kill의 기능<br>**
 The kill utility **sends a signal to the processes** specified by the pid operand(피연산자). Only the super-user may send signals to other users' processes.<br>
  `현재 수행 중인 프로세스에게 시그널(신호)를 보내는 것` 이다. 단순히 실행 중인 프로세스를 종료시키는 것이라는 것은 정답이 아니다. 이는 kill 명령어 기능의 일부일 뿐이다.
