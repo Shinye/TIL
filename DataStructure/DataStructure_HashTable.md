@@ -1,4 +1,4 @@
-#Hash Table
+# Hash Table
 
 구현 코드 링크 : [https://github.com/Shinye/TIL/blob/master/DataStructure/hashtable.cpp](https://github.com/Shinye/TIL/blob/master/DataStructure/hashtable.cpp)
 
@@ -95,7 +95,7 @@ THIS MEANS! (assuming we define our hash table well)
 - 버킷 주소의 범위는 0 ~ (D-1) 이고, 해시 테이블에는 적어도 b = D 개의 버킷이 있어야함
 
 
-**(2) 중간 제곱 함수 **
+** (2) 중간 제곱 함수 **
 - 탐색 키를 제곱한 다음, 중간의 몇 비트를 취해서 해시 주소를 생성
 - 중간 제곱 함수는 키를 제곱한 후에 그 결과의 중간에 있는 적절한 수의 비트를 취해 
         홈 버킷을 정함
