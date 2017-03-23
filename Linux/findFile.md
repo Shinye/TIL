@@ -1,10 +1,10 @@
-#Linux ; 파일의 위치를 찾는 법
-###locate<br>
+# Linux ; 파일의 위치를 찾는 법
+### locate<br>
 파일에 대한 정보를 담고 있는 DB(mlocate)를 뒤져 결과 값을 도출해낸다. <br>다른 명령어들과 다르게 Directory에 직접적으로 접근하지 않는다. 디렉토리에 직접 접근하는 다른 명령어들보다 비교적 성능이 좋지만 파일 위치의 실시간 반영이 어렵다는 단점이 있다. 리눅스에서 주기적으로 `updatedb` 라는 명령어를 실행해주어 DB에 지속적으로 변경사항이 반영될 수 있게끔 한다.
 
 `updatedb`는 파일시스템을 검색하여 지금 존재하고 있는 파일들의 목록을 데이터베이스화 하는 역할을 한다.(root 권한)<br>
 
-###find
+### find
 [참조문서](http://www.binarytides.com/linux-find-command-examples/)<br>
 Directory에 접근하여 파일을 찾음. 따라서 locate와 다르게 실시간으로 파일의 위치 및 상태를 반영함. <br>
 
@@ -45,7 +45,7 @@ $ find . -name 'tech.html' -exec rm -f {} \;
 ```
 
 
-###whereis
+### whereis
 whereis는 실행파일(명령어 포함)의 실행파일위치, 소스위치, man 페이지파일의 위치를 찾아주는 명령어이다.<br>
 
 ```
@@ -54,7 +54,7 @@ $ whereis find
 ```
 <br>
 
-###$PATH<br>
+### $PATH<br>
 리눅스 환경의 중요한 환경변수 중 하나. 변수명 앞에 달러 표시를 하면 환경변수라는 뜻.<br>
 <br>
 **환경변수란?**<br>
@@ -107,7 +107,7 @@ source .bashrc
 <br><br>
 
 
-###참조URL
+### 참조URL
 http://cafe.naver.com/pipc/14139 <br>
 http://inhack.org/wordpress/?p=2968 <br>
 https://kldp.org/node/112128 <br>
