@@ -1,79 +1,77 @@
-인터넷을 연결하기 위하여 필요한 것들!
+# IP Address
 
-나 ——ㅇ—>인터넷
+## 1. IP and IP Address
 
-이 사이에 뭐가 있을깡?
+**IP** 란 통신을 할 때 지켜야할 규약이라는 뜻의 '프로토콜'의 종류 중 하나로, **Internet Protocol**의 줄임말이다.<br>`TCP/IP계층`의 관점에서 네트워크 구조를 보았을 때 `인터넷 계층`에서 쓰이는 프로토콜로, 전송하고자 하는 패킷을 목적지 (서버컴퓨터/클라이언트컴퓨터) 까지 전달할 때 쓰이는 프로토콜이다. 
 
-**1.  IP주소 (Internet Protocol Address)**
+IP와 IP주소에 대해 알아보기 전 먼저 프로토콜이 무엇인지에 대해 간단히 살펴보자.
 
-A unique identifier of your computer network.
 
-Just like evert home or office has a unique address to which one could send a mail.
 
-Similarly, every computer if it wants to receive data or send data, needs to have a unique address. 
+### 통신규약과 프로토콜
 
-IP주소를 처음 만들고자 할 땐, 모든 컴퓨터의 연결이 가능하게 하기 위해 16진수로 주소를 만들고자 시도하였으나 너무 어렵고 직관성이 떨어지니 지금의 IP주소 구조를 갖게 되었다 함.
+ 선생님-학생 간의 커뮤니케이션을 기반으로 하는 학원 수업을 예로 들어보자.<br>한 강의당 60분짜리 수업을 진행한다고 했을 때 일반적인 수업 진행 방식은 다음과 같다. 우선 선생님이 5분간 학생들 출석을 부른다. 출석을 부른 후 전 수업시간에 내준 숙제를 검사하고 학생들에게 숙제에 대한 질문을 15분가량 받는다. 그리고 40분간 정규 수업을 진행하면 한 수업이 끝난다.
 
-모양 : w.x.y.z // can hold 256 distinct values.[0,255]
+ 이처럼 서로 (위의 예시로는 선생과 학생) 가 이해할 수 있는 수행 절차가 있을 때 커뮤니케이션은 더욱 원활하고 효과적으로 이뤄질 수 있다. 컴퓨터와 컴퓨터가 통신할 때도 이와 같은 방식을 사용하는데, 이 때 지켜나가야 할 절차나 규약을 `프로토콜(protocol)` 이라고 부른다.
 
-private address @IPAdrdress ?? [http://egloos.zum.com/xxwony/v/73126](http://egloos.zum.com/xxwony/v/73126)
+컴퓨터끼리 통신을 하려면 ''어떤 절차에 따라, 무엇을 보낼 것인가'' 에 대한 규칙이 필요하다. 또한 전송이 잘 되지 않았을 때 어떻게 대응해야 하는지에 대한 정의도 필요하다.
 
-**IPv6**
+**프로토콜은 눈에 보이지 않는다.**
 
-s:t:u:v:w:x:y:z 
+프로토콜은 통신 과정에서의 절차나 규칙이 기술된 '안내서'에 불과하다. 그래서 프로토콜 자체는 통신 기능을 구현하고 있다거나 통신 장비처럼 눈에 보이는 형태가 있는 것이 **아니다!!** <br>그저 프로토콜(규칙)에 맞게 동작하도록 만들어진 프로그램이나 통신장비, 그리고 데이터 포맷 등이 존재하는 것 뿐이다. 이들이 서로 약속된 방식으로 잘 동작해줄 때 원활한 통신이 가능해진다.
 
-인구가 늘어남에 따라 기존의 IP주소(8bit. IPv4)형식에서 벗어나 IPv6라는 새로운 형식의 아이피 주소 형태를 만들었다. 기존의 8bit가 0부터 255까지였다면 16bit는 0부터 65535까지. 가독성이 너무 떨어지니까 주로 16진수를 쓴다. [0,65535] -> [0,ffff]
+이미지 출처 : [책 - TCP/IP 쉽게, 더 쉽게](http://book.naver.com/bookdb/book_detail.nhn?bid=11054407) (책 너무 좋네요!! 정말!! 🙂)
 
-아직 신생이라서 간혹 이런 주소도 보인다
+![https://68.media.tumblr.com/372c50dcb4cbbe1314215a38058c0e24/tumblr_ond3lpEzOc1w8w3y8o1_1280.png](https://68.media.tumblr.com/372c50dcb4cbbe1314215a38058c0e24/tumblr_ond3lpEzOc1w8w3y8o1_1280.png)
 
-2344:7843:324:0:0:0:0:423 이런 연속된 일련의 0들은 불필요하니
+TCP/IP 계층별로 사용되는 구체적인 대표적인 프로토콜은 추후에 네트워크 계층을 다루며 다시 설명하겠다.
 
-2344:7843:324::423 이렇게 생략해서 작성하기도 함.
 
-**DHCP (Dynamic Host Configuration Protocol)**
 
-IP주소를 디바이스에 할당해주는 역할.
+### 왜 'IP Address'이라고 불리는가?
 
-우리가 처음 IP주소를 발급받을 때 가지고자 했던 주소 넘버를 이미 누군가 선점하고 있는 상태라면? Somewhere between your computer and the Internet at large exists a DHCP server, whose role is to assign IP addresses to devices.
+위의 사진에서 보이는 대로 TCP/IP계층은 크게 애플리케이션 계층 / 트랜스포트 계층 / 인터넷 계층 / 네트워크 인터페이스 계층으로 나뉘며, IP는 '인터넷 계층' 에서 사용되는 프로토콜이다. <br>이 인터넷 계층에서 IP를 준수하며 하는 역할은 바로 **통신하는 컴퓨터들을 식별할 수 있도록 어드레스 정보를 덧붙이는 것**이다. 이 어드레스 정보를 보고 목적지로 데이터가 전달이 된다. 따라서 IP주소라는 이름을 갖게 되는 것이다.
 
-DHCP server has a list of addresses that it can validly assign. And it gives you one.
+```
+Request : 클라이언트 컴퓨터(192.168.219.120)에서 웹 서버 컴퓨터(121.78.223.102)로 데이터를 요청한다.
+Response : 웹 서버 컴퓨터(121.78.223.102)에서 클라이언트 컴퓨터(192.168.219.120)로 데이터를 보낸다.
+```
 
-It’s just a program running somewhere between you and the internet that has a bank of IP address that it can give out. And when you connect to the network, it gives you one.
 
-**DNS (Domain Name System) : dns서버??**
 
-**Not a giant block!**
+### 그래서 IP Address는...
 
-…But you’ve never actually tried to visit a website by typing its IP addresses into your browser.
+컴퓨터들이 통신을 하기 위해서 꼭 필요한 컴퓨터의 고유 주소이다. 따라서 인터넷을 할 수 있는 컴퓨터(혹은 모바일 디바이스들)은 모두 고유의 IP주소를 부여받는다. 당연히, 통신을 하기 위해서는 서버 및 클라이언트 컴퓨터 모두 IP주소가 필요하다. (물론 서버도 컴퓨터다!)
 
-Translates IP addresses to human comprehensible words or phrases that are much more memorable than remembering a set of four numbers.
+![https://68.media.tumblr.com/67d2ffc4018d7185ec4d5f4312642e1a/tumblr_onh95tjCBr1w8w3y8o1_1280.png](https://68.media.tumblr.com/67d2ffc4018d7185ec4d5f4312642e1a/tumblr_onh95tjCBr1w8w3y8o1_1280.png)
 
-In the way, large DNS servers are like libraries that stock many different set of local yellow page books. In order to have the most up-to-date phone numbers for businesses, libraries must update the books they have on hand.
+참고 : 도메인의 IP주소를 알고싶을땐 콘솔창에 `ping 주소명` 명령어를 쓰면 된다.
 
-DNS record sets are thus fairly decentralized It’s decentralized across many many servers. 
+![https://68.media.tumblr.com/5f51411724773289cb6bf224f3519b8c/tumblr_onh9mdRS5b1w8w3y8o1_1280.png](https://68.media.tumblr.com/5f51411724773289cb6bf224f3519b8c/tumblr_onh9mdRS5b1w8w3y8o1_1280.png)
 
-**Access Points.**
+IP주소의 구조를 보면 느끼겠지만 IP주소는 기억하기 어려운 구조로 이루어져 있다. 네이버에 접속하기 위해 IP주소를 일일이 기억하고 검색해야 했다면 지금처럼 인터넷이 발달하기 어려웠을 것이다. 이러한 바탕이 바로 현재 www.naver.com과 같은 `도메인 네임`이 생성되는 이유이다. (당연히 주소창에 IP주소를 직접 입력해도 접속이 가능하다.)
 
-actually connecting to the internet.
+여기서 한 가지 유의해야하는 점은, 우리가 도메인을 통해 접속을 하지만 도메인만으로는 실질적인 접속이 이루어지지 않는다. 도메인을 입력하면 이 도메인이 본래 도메인이 가지는 IP주소로 변환이 되어야 하고, 변환이 된 뒤에야 비로소 IP주소가 실질적인 접속을 가능하게 하다. 마치 핸드폰 전화번호부에 입력된 이름만으로는 전화를 걸 수 없다는 것과 같은 이치이다.
 
-One of the ways we’ve dealt with the IPv4 addressing problem is, to start assigning multiple people to the same IP address.
+이러한 역할을 가능하게 해주는 것이 바로 `DNS`이다.
 
-The IP address is assigned to a router, whose job it is to act as a traffic cop that allows data requests from all of the devices on your local network(ur home or company) to be processed through a single IP address. 
 
-Modern home networks consist of access points that combine a router, a modem, a switch, and other technologies together into a single device.
 
-Allowing everybody who’s connected to that router to use the same IP address to get out. So everybody at your home 
+### DNS (Domain Name System)
 
-=======================
+위에서 설명한 내용을 그림으로 표현하자면 다음과 같다.
 
-IP (Internet Protocol)
 
-“The Internet” is an interconnected network comprised of smaller networks woven together and agreeing to communicate with one another.
 
-How do these networks know how to communicate with one another? this is the responsibility of the IP. This dictates how information is transmitted from point A to point B.
+![https://68.media.tumblr.com/e07f3583f1ac4772c04b711b30621880/tumblr_onhd79GQo81w8w3y8o1_540.png](https://68.media.tumblr.com/e07f3583f1ac4772c04b711b30621880/tumblr_onhd79GQo81w8w3y8o1_540.png)
 
-모든 시스템들을 연결하기가 현실적으로 불가능하기 때문에 
+DNS 설명 추후에 추가하기….!!!!
 
-TCP
 
-HTTP
+
+### 공인IP vs 사설IP
+
+
+
+### 포트
+
