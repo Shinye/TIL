@@ -11,7 +11,7 @@ alias
 **alias 추가**
 
 ```shell
-alias 단축명 = '실행할명령어'
+alias 단축명='실행할명령어'
 ```
 
 ![https://drive.google.com/uc?id=0B3Or0Wv2t1xwQTdOU1ZwOVRTTVE](https://drive.google.com/uc?id=0B3Or0Wv2t1xwQTdOU1ZwOVRTTVE)
