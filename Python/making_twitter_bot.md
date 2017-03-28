@@ -39,7 +39,7 @@ var = [1,2,3,4]
 
 namespace라는 이름에서 알 수 있듯, 네임스페이스는 말 그대로 많은 name들을 담고 있는 공간이라는 뜻이다. <br> namespace를 이해하기 위해선 module에 대한 이해가 필요한데,  `module` **은 파이썬 코드를 담고 있는 파일이다.** 해당 파일에는 파이썬 클래스, 함수 또는 단순하게 names 의 리스트가 들어있을 수 있다.
 
-각 모듈은 자신만의 고유한 namespace를 갖고 있다. (모듈의 namespace의 이름은 보통 해당 모듈의 파일 이름을 가진다.)  그래서 동일한 모듈내에서 동일한 이름을 가지는 클래스나 함수를 정의할 수 없다. <br>하지만 각 모듈들은 완벽하게 독립적이기 때문에 (namespace의 이름이 다르기 때문에) 동일한 이름을 가지는 클래스나 함수를 정의할 수 있다. 
+각 모듈은 자신만의 고유한 namespace를 갖고 있다. (모듈의 namespace의 이름은 보통 해당 모듈의 파일 이름을 가진다.)  그래서 동일한 모듈내에서 동일한 이름을 가지는 클래스나 함수를 정의할 수 없다. <br>하지만 서로 다른 모듈들은 완벽하게 독립적이기 때문에 (namespace의 이름이 다르기 때문에) 동일한 namespace안이 아니라면 동일한 이름을 가지는 클래스나 함수를 정의할 수 있다. 
 
 > 예를 들어, 한 학교의 3학년 2반에도 3학년 5반에도 김광현이라는 학생이 있다고 가정해보자. 2반 교실 안에서 수업을 진행하고 있을 때 선생님이 광현이가 발표해봐, 라고 말한다면 당연히 2반의 김광현이 발표를 할 것이고 5반의 경우도 5반의 김광현이 발표를 할 것이다.<br> 하지만 방송실에서 누군가 김광현학생 교무실로 오세요 하고 부른다면, 부르는 대상이 2반의 김광현일지 5반의 김광현일지 알 수 없다. 이름 앞에 몇 반의 김광현인지 정확히 언급을 해야 할 것이다. <br>이 때 언급되는 반 이름이 바로 namespace의 역할을 해주는 것이고, 한 namespace에는 한 명의 김광현만 있는 것이다. 
 >
@@ -51,14 +51,14 @@ module을 import하는 방법에는 여러가지가 있다. 방법에 따라 nam
 
    모듈을 import 하는 가장 간단한 방법이고, 일반적으로 추천되는 방법이다. 이렇게 import 를 하게 되면 module 의 name 을 prefix 로 사용함으로써 모듈의 namespace 에 접근할 수 있다.
 
-   아래 예제에서 sys 는 모듈 이름이고, path 는 sys 모듈의 namespace 에 담겨있는 name 이다. 따라서 path 에 접근을 하기 위해서는 모듈 이름인 sys 를 prefix 로 붙여서 sys 모듈의 namespace 에 접근한 후에 사용해야 한다.
+   아래 예제에서 random은 모듈 이름이고, randint 는 random 모듈의 namespace 에 담겨있는 함수이다. 따라서 randint 함수에 접근을 하기 위해서는 모듈 이름인 random 를 prefix 로 붙여서 random 모듈의 namespace 에 접근한 후에 사용해야 한다.
 
    ```python
    import random
    print random.randint(0,100)
    ```
 
-2. **from (module_name) import (name, )**
+2. **from (module_name) import (name, ... )**
 
    모듈의 namespace 에서 import 에서 지정된 name 들을 직접 가져오도록 한다. 이렇게 하게 되면 import 이후에 지정한 name 들은 module 의 name을 prefix 로 지정하지 않고도 접근이 가능하다. 하지만, 이 경우에 module 에서 import 된 이름과 main script 에서 지정된 이름이 동일한 경우, 나중에 정의되는 이름으로 대체되어서 이전 것에 접근이 불가능하게 된다. <br>단지 몇개의 name 만 필요하다고 명확하게 알고 있는 경우에 사용하는 것이 유용하다.
 
@@ -67,7 +67,7 @@ module을 import하는 방법에는 여러가지가 있다. 방법에 따라 nam
    print randint(0,100)
    ```
 
-3. __from (module_name) import * __
+3. __from (module_name) import *__
 
    2 와 동일하지만, module 에 있는 모든 name 을 직접 현재 namespace 로 가져오게 된다. 이렇게 되면 namespace 가 섞이게 되어서 일반적으로 사용을 권장하지 않는다. 차라리 첫번째 타입(1번)의 import 를 사용하는 것이 좋다.
 
@@ -77,7 +77,7 @@ module을 import하는 방법에는 여러가지가 있다. 방법에 따라 nam
 
 앞서 import된 namespace가 처리되는 과정을 알아보았다. 그렇다면 import를 통해서가 아닌, 파이썬 인터프리터가 최초로 파일을 읽어서 실행하는 경우를 보자.
 
-파이썬 인터프리터는 소스파일을 읽고, 그 안의 모든 코드를 실행하게 되는데, 코드를 실행하기 전에 특정한 변수값을 정의한다. 그중 하나가 `__name__` 이라는 변수(name)를 `__main__` 으로 세팅을 한다.<br>즉 `python script.py` 와 같이 직접 쉘에서 실행하는 경우에는, 파이썬 인터프리터가 해당 script.py 를 'script' 라는 이름의 모듈과 namespace 가 아닌 `__main__` 이라는 이름의 모듈 그리고 namespace 로 간주하여 다루게 된다.<br>( Whenever you run a simple Python script, the interpreter treats it as module called __main__, which gets its own namespace. )
+파이썬 인터프리터는 소스파일을 읽고, 그 안의 모든 코드를 실행하게 되는데, 코드를 실행하기 전에 특정한 변수값을 정의한다. 그중 하나가 `__name__` 이라는 변수(name)를 `__main__` 으로 세팅을 한다.<br>예를 들어 `python script.py` 와 같이 직접 쉘에서 실행하는 경우에는, 파이썬 인터프리터가 해당 script.py 를 'script' 라는 이름의 모듈과 namespace 가 아닌 `__main__` 이라는 이름의 모듈 그리고 namespace 로 간주하여 다루게 된다.<br>( Whenever you run a simple Python script, the interpreter treats it as module called __main__, which gets its own namespace. )
 
 따라서 처음에 궁금했던 아래 문장은 **'만일 이 파일이 인터프리터에 의해서 실행되는 경우라면'** 이라는 의미를 갖는다.
 
@@ -192,7 +192,7 @@ string2.split('/')[2] # 'string'
 
 - 파싱을 수행하는 프로그램 모듈
 
-- 인터프리터 나 [컴파일러](https://github.com/Shinye/TIL/blob/master/Algorithm/allocation.md) 의 구성요소 중 하나
+- 인터프리터나 [컴파일러](https://github.com/Shinye/TIL/blob/master/Algorithm/allocation.md) 의 구성요소 중 하나
 
   __인터프리터? __
 
@@ -266,9 +266,9 @@ Python에는 `requests` 라는 유명한 http request 라이브러리가 있다.
 
 0. 설치하기
 
-    ```python
-    pip install requests
-    ```
+     ```python
+     pip install requests
+     ```
 
 1. 기본적인 사용 방법
 
