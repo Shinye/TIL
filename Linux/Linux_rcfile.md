@@ -14,7 +14,7 @@
 
 > I tend to see it as more of a historical name than meaningful at this point. Many uses of "rc" aren't really "run commands" anymore, unless you want to be pedantic and call assignment a command; often, a program's rc file is just config parameter values. Completely correct answer though :) 
 
-현재 rc파일의 사용은 명령어의 집합이라기 보다는 해당 프로그램에 필요한 변수와 그 값들의 집합이라고 보는 것이 맞다는 말이였다. 그래서 내 .vimrc파일을 까보았다.
+현재 rc파일의 사용은 명령어의 집합이라기 보다는 해당 프로그램에 필요한 변수와 그 값들의 집합이라고 보는 것이 맞다는 말이였다. 그래서 내 .zshrc파일을 까보았다.
 
 ![https://68.media.tumblr.com/2808f76fcd6784c0daa3d96457acbda7/tumblr_onhihiI92s1w8w3y8o1_1280.png](https://68.media.tumblr.com/2808f76fcd6784c0daa3d96457acbda7/tumblr_onhihiI92s1w8w3y8o1_1280.png)
 
