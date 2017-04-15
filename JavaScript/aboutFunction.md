@@ -1,4 +1,4 @@
-# Function Declration(함수선언) vs Function Expressions(함수표현)
+# Function Declration(함수선언) & Function Expressions(함수표현)
 
 함수는 독립적으로 분리된 로직으로서 프로그램 수준에서 미리 정의되어 있거나 사용자정의에 의해 만들어진 실행단위를 일컫는 말이다. 함수는  `Function` 키워드를 통해 정의될 수 있다.
 
@@ -134,6 +134,8 @@ var foo = function(){
 
 예제1의 함수선언의 경우 함수선언 코드블럭이 호이스팅 되어 scope의 최상단으로 간다. 따라서 첫째줄의 foo(); 가 무리 없이 실행될 수 있었다. 하지만 예제2의 경우 함수표현 코드블럭은 변수 foo에 할당되었으므로 호이스팅이 일어나지 않는다. 따라서 에러가 난다.
 
+이처럼 코드 안에 많은 선언문으로 호이스팅이 자주 일어나게 된다면 코드의 가독성이 떨어질 수 있으므로 설계에 신경쓸 필요가 있다고 한다.
+
 
 
 ### 호이스팅 예제
@@ -172,7 +174,41 @@ foo();
 
 
 
+# 내부 함수 / 함수를 리턴하는 함수
 
 
 
+## 내부함수
+
+위에서 확인한 바와 같이 자바스크립트 함수 안에서 또 다른 함수 선언이 가능하다. 이렇게 함수 내부에 선언된 함수를 `내부함수` 라고 한다. 부모 함수 코드가 내부함수로 접근하려는 외부의 접근을 막아준다. 또한 `클로져` 의 핵심이기도 하다. (링크추가바람)
+
+![https://drive.google.com/uc?id=0B3Or0Wv2t1xwTG9FM0hISkp0YkU](https://drive.google.com/uc?id=0B3Or0Wv2t1xwTG9FM0hISkp0YkU)
+
+다음의 예시와 같이 내부함수인 child()를 부모함수(parent()) 영역 밖에서 호출할 시 Syntax Error가 뜬다. 함수 내부에서 선언한 변수가 외부에서 사용 불가능하듯이, 내부에서 선언한 함수 역시 마찬가지다.
+
+단, 부모 함수가 내부 함수를 `return` 한다면, 부모 함수 밖에서도 내부 함수를 사용할 수 있다.
+
+![https://drive.google.com/uc?id=0B3Or0Wv2t1xwa3ZESmx2Y1FwREU](https://drive.google.com/uc?id=0B3Or0Wv2t1xwa3ZESmx2Y1FwREU)
+
+위 예제에서 parent() 함수가 호출되면, inner 변수에 child변수에 담긴 함수가 전달되고, child 변수는 내부함수의 참조값을 가진다. 결론적으로 inner도 내부 함수를 참조할 수 있게 된다.
+
+inner()를 호출하면 parent() 스코프 밖에서도 내부함수 child()가 호출된다. a변수가 정의되어 있지 않아, 스코프 체이닝으로 부모함수에 a가 정의되어 있는지 확인하고, a를 출력한다. 이와 같은 형태를 `클로져` 라고 한다.
+
+
+
+## 함수를 리턴하는 함수
+
+앞서 언급한 바와 같이, 자바스크립트의 함수를 일급 객체이므로 함수 자체를 return하는 것이 가능하다. 함수를 호출함과 동시에 다른 함수로 바꾸거나, 자기 자신을 재정의 하는 것이 가능하다.
+
+![https://drive.google.com/uc?id=0B3Or0Wv2t1xwem9lUl8zaFlfbHM](https://drive.google.com/uc?id=0B3Or0Wv2t1xwem9lUl8zaFlfbHM)
+
+
+
+다음의 예시와 같이 함수를 재정의 할 수도 있다.
+
+
+
+### 참고 URL
+
+[[스터디_자바스크립트] 13. 함수의 다양한 형태](http://programmer-seva.tistory.com/26)<br>[MDN-함수](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/%ED%95%A8%EC%88%98#함수_표현)<br>[Function Declarations(함수선언) vs Function Expressions(함수표현)](http://insanehong.kr/post/javascript-function/)
 
