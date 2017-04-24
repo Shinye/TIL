@@ -18,11 +18,10 @@ nodeJS의 API는 경우에 따라 동기 버전과 비동기 버전을 동시에
 
 ![https://drive.google.com/uc?id=0B3Or0Wv2t1xwZ0RjLWl3RUdxSUU](https://drive.google.com/uc?id=0B3Or0Wv2t1xwZ0RjLWl3RUdxSUU)
 
-hello world!!! 가 적혀있는 data.txt를 읽어오는 작업이다. <br>코드의 순서대로 결과값이 출력되는 sync버전의 코드(4~6줄)와는 달리, Async (9~14줄)은 코드 작성 순서대로 결과값이 출력되지 않음을 알 수 있다. readFile 함수가 data.txt를 읽는 사이 다음 줄인 console.log(4); 가 먼저 실행되고 그 후 readFile함수가 일을 마치는 대로 이의 결과값이 출력된다.
+hello world!!! 가 적혀있는 data.txt를 읽어오는 작업이다. <br>코드의 순서대로 결과값이 출력되는 sync버전의 코드(4-6줄)와는 달리, Async (9-14줄)은 코드 작성 순서대로 결과값이 출력되지 않음을 알 수 있다. readFile 함수가 data.txt를 읽는 사이 다음 줄인 console.log(4); 가 먼저 실행되고 그 후 readFile함수가 일을 마치는 대로 이의 결과값이 출력된다.
 
 
 
 ### 참고 URL
 
 [동기와 비동기 프로그래밍](https://opentutorials.org/course/2136/11884) ~~이고잉님 충성충성충성~~
-
