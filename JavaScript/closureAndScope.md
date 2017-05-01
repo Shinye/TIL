@@ -16,7 +16,7 @@
 var scope = "global";
 function f(){
   console.log(scope); // "global" 아닌 undefined 출력. 아래에 지역변수로 선언 및 할당된 scope가 할당문
-  					  // 을 제외하고 호이스팅 되었기 때문에 선언은 되었지만 할당값은 없는 undefined가 출력
+  // 을 제외하고 호이스팅 되었기 때문에 선언은 되었지만 할당값은 없는 undefined가 출력
   scope = "local"; // 이제 scope변수가 초기화되고 제대로 된 값이 있다.
   console.log(scope); // local출력
 }
@@ -34,10 +34,10 @@ function test(o){
     var j = 0; // j는 if문 블록 뿐만 아니라, 함수 전체에 걸쳐 정의된다.
   
     for(var k=0; k<10; k++){ // k는 반복문 외에도 함수 전체에 걸쳐 정의된다.
-      console.log(k);
+      console.log(k); // 0~9 출력
     }
     
-    console.log(k); // k는 여전히 정의되어 있다.
+    console.log(k); // k는 여전히 정의되어 있다. 10 출력
   }
   console.log("j : "+j); // j는 정의되어 있고, if문을 거치지 않았다면 초기화 되지 않아 undefined일 것.
 }
@@ -45,7 +45,7 @@ function test(o){
 
 
 
-다음의 추가적인 예시로, 자바스크립트의 지역변수의 유효범위가 블록 기준이 아닌 `함수` 기준임을 다시 한 번 알 수 있다.
+다음의 추가적인 예시로, 자바스크립트는 지역변수의 유효범위가 블록 기준이 아닌 `함수` 기준임을 다시 한 번 알 수 있다.
 
 ![https://68.media.tumblr.com/1311bfd36e06920278e3e7e145720396/tumblr_op682wHWlk1w8w3y8o2_1280.png](https://68.media.tumblr.com/1311bfd36e06920278e3e7e145720396/tumblr_op682wHWlk1w8w3y8o2_1280.png)
 
@@ -81,3 +81,52 @@ checkScope(); // "local"
 전역변수로 scope2가 선언 및 값이 할당되어 있지만, 함수 foo() 안에도 역시 scope2가 선언 및 값 할당 되어 있다. 따라서 전역변수, 지역변수 중복 선언된 변수인 scope2는 둘 중 기존에 선언한 전역변수가 감춰진다. 자바스크립트의 [호이스팅](https://github.com/Shinye/TIL/blob/master/JavaScript/aboutFunction.md#호이스팅hoisting) 성질에 따라, 지역변수 scope2는, `console.log(scope2)` 가 작성된 줄에서는 아직 값 할당이 안된 상태이므로 결과값으로 undefined가 뜬다.
 
 이와 같은 이유로 기존의 블록유효범위를 가진 언어들(C++, JAVA)에서 지역변수를 선언할 때, 일반적으로 그 지역변수를 사용하는 코드와 최대한 가까운 곳에서 선언을 권장한다. 반면 자바스크립트의 지역변수는 함수의 최상단에 변수를 선언 하는 것이 권장된다는 의견도 있다.
+
+
+
+### var에 대하여
+
+자바스크립트에서 변수를 선언할 때 꼭 `var`을 써야하는 것은 아니다. var을 쓰지 않고도  변수 선언을 할 수 있다. 다만 권장하지 않을 뿐이다…!
+
+var 키워드는 **해당 변수의 Scope(유효범위)를 설정하는 역할**을 한다고 볼 수 있다. 함수 내에서 변수를 선언할 때, `var` 를 변수 앞에 덧붙이지 않으면 함수의 지역변수가 아닌 전역변수같은 역할을 하는 것이 되어버린다. (정확하게는 전역객체에 등록되는 전역변수가 되는 셈이라고 하는데…)
+
+이러한 선언의 단점은 크게 두 가지가 있다.
+
+- 함수 안에 작성한 변수는 지역변수로써의 역할을 의도한 것일텐데, 실상은 전역변수가 되어버리므로 필요한 경우 외에도 항시 메모리를 차지하고 있다.
+- var 없는 변수가 할당되는 것은 런타임 과정에서 일어나는 일이므로, 함수 안에 var없는 변수가 선언되었다면 해당 변수는 함수 호출이 되기 전 (함수 객체 생성 전) global scope에 등록되지 않는다.
+
+```javascript
+var x = 1;
+function foo(){
+  y = 2;
+  return x+y;
+}
+
+//Case 1
+console.log(x+y); // Reference Error - y is not defined
+
+//Case 2
+console.log(foo()); // 3
+console.log(x+y); // 3
+```
+
+
+
+## 클로져
+
+외부함수 안에 선언된 내부함수는 외부함수의 지역변수에 접근할 수 있다. 또한, 외부함수가 return에 의해 종료된 이후에도, 내부함수가 외부함수의 지역변수의 접근할 수 있다는 개념이 바로 `클로져` 이다.
+
+클로져의 대표적인 예시는 다음과 같다.
+
+```javascript
+function outer(){
+  var test = "hello world!";
+  return function(){
+    console.log(test);
+  }
+}
+
+var inner = outer();
+inner(); // "hello world!"
+```
+
