@@ -65,6 +65,10 @@ while(getline(foo, token, ' ')){ // eof까지 while문을 돌린다.
 
 
 
+### stream
+
+그렇다면 스트림이 정확하게 뭘까? 스트림에 대하여…~~~
+
 
 
 ## 그 외
