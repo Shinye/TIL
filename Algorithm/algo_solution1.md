@@ -1,5 +1,7 @@
 ### 문제상황
 
+[https://github.com/Shinye/Algorithm-Study/blob/master/test_vowel.cpp](https://github.com/Shinye/Algorithm-Study/blob/master/test_vowel.cpp)
+
 띄어쓰기로 구분된 문자열을 입력받아, 띄어쓰기 기준의 단어들을 하나씩 배열 안에 넣고 싶을 때<br>ex) "abc def ghi jkl" 을 입력받은 후, abc/def/ghi/jkl 을 배열에 넣음
 
 
