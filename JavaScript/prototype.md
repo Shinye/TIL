@@ -100,7 +100,7 @@ shinye.eyes; // 2개
 
 위의 코드를 그림으로 표현하면 다음과 같다.
 
-![https://68.media.tumblr.com/9c71dc890e456b423c833649c69d5c55/tumblr_osz1dkoY7a1v80c66o1_1280.png](https://68.media.tumblr.com/9c71dc890e456b423c833649c69d5c55/tumblr_osz1dkoY7a1v80c66o1_1280.png)
+![https://68.media.tumblr.com/54a1cba70b1f45fb69d277614214d056/tumblr_osz3e3TLxo1v80c66o1_1280.png](https://68.media.tumblr.com/54a1cba70b1f45fb69d277614214d056/tumblr_osz3e3TLxo1v80c66o1_1280.png)
 
 
 
