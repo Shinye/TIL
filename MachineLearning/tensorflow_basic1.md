@@ -44,16 +44,13 @@
 
 ### Supervised Learning 의 종류
 
-1. Regression
-
+1. Regression<br>
    ex) 공부한 시간을 기반으로 점수(0점~100점)를 예측하는 것
 
-2. Binary classification
-
+2. Binary classification<br>
    ex) 공부한 시간을 기반으로 Pass/NotPass 여부를 예측하는 것
 
-3. Multi-label classification
-
+3. Multi-label classification<br>
    ex) 공부한 시간을 기반으로 Letter Grade(A,B,C,D,F) 를 예측하는 것
 
 <br>
@@ -64,19 +61,20 @@
 
 ![https://camo.githubusercontent.com/4ee55154486232ec9edd8f1a3bad4c4a146f6cfe/68747470733a2f2f7777772e74656e736f72666c6f772e6f72672f696d616765732f74656e736f72735f666c6f77696e672e676966](https://camo.githubusercontent.com/4ee55154486232ec9edd8f1a3bad4c4a146f6cfe/68747470733a2f2f7777772e74656e736f72666c6f772e6f72672f696d616765732f74656e736f72735f666c6f77696e672e676966)
 
+> 텐서플로우는 그래프라고 하는 자료구조(Data Structure)처럼 동작한다는 것을 알려주는 그림이다.
+
 텐서플로우(TensorFlow)는 기계 학습과 딥러닝을 위해 구글에서 만든 오픈소스 라이브러리이다. 데이터 플로우 그래프(Data Flow Graph) 방식을 사용하여 연산을 수행한다.
 
 텐서플로우는 크게 두 가지로 구성되어 있다.
 
 - 노드 : 주로 수학적인 연산 (Mathematical operations), 데이터 입/출력, 그리고 데이터의 읽기/저장 등의 작업을 수행한다.
-- 엣지 : 노드들 간의 데이터의 흐름을 나타내며, 동적 사이즈의 다차원 배열(tensor)을 실어나른다. 여기서 `tensorflow` 라는 용어가 생성된 것이다. (Multidimensional data arrays(tensors) communicated between nodes.)
+- 엣지 : 데이터를 담고 있다. 정확히는 노드들 간의 데이터의 흐름을 나타내며, 동적 사이즈의 다차원 배열(tensor)을 실어나른다. 여기서 `tensorflow` 라는 용어가 생성된 것이다. (Multidimensional data arrays(tensors) communicated between nodes.)
 
 <br>
 
 ### 텐서란?
 
-Tensor란 학습 데이터가 저장되는 다차원 배열을 뜻한다.
-
+Tensor란 학습 데이터가 저장되는 다차원 배열을 뜻한다.<br>
 텐서를 이야기 할 때 일반적으로 `Ranks` , `Shapes` , `Types` 를 이야기한다. 
 
 **1.  Rank : "몇차원 Array인가?"**
@@ -122,5 +120,7 @@ Tensor란 학습 데이터가 저장되는 다차원 배열을 뜻한다.
 
 
 
+### 참고 URL
 
+[텐서플로우 시작하기]([https://gist.github.com/haje01/202ac276bace4b25dd3f](https://gist.github.com/haje01/202ac276bace4b25dd3f))<br>[맨땅에 해딩 머신러닝 #1](http://bcho.tistory.com/966)
 
