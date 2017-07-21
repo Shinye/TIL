@@ -68,3 +68,12 @@ The DOM consists of a hierarchy of nodes where each node can have a parent, a li
 
 - DOM은 트리에 대한 접근을 허용하는 `method` 를 규정하고, 해당 메서드는 문서의 구조, 양식, 내용을 변경할 수 있다.
 - 또한 `nodes` 는 각기 부여된 **`이벤트 핸들러`를 내포**할 수 있으며, 어떠한 이벤트가 발생하면 그에 해당하는 이벤트 핸들러가 실행된다.
+
+
+<br>
+### 참고 URL
+책 자바스크립트 완벽가이드<br>
+[Difference between Node object and Element object?](https://stackoverflow.com/questions/9979172/difference-between-node-object-and-element-object)<br>
+[파싱,파서](https://zetawiki.com/wiki/%ED%8C%8C%EC%8B%B1,_%ED%8C%8C%EC%84%9C)<br>
+[JavaScript HTML DOM](https://www.w3schools.com/js/js_htmldom.asp)<br>[[용어 뜻/설명] API란?](http://blog.naver.com/azure0777/220749852024)<br>[MDN-DOM 소개](https://developer.mozilla.org/ko/docs/Gecko_DOM_Reference/%EC%86%8C%EA%B0%9C)<br>[MDN-문서 객체 모델 (DOM)](https://developer.mozilla.org/ko/docs/Gecko_DOM_Reference)<br>
+
