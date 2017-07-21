@@ -1,6 +1,7 @@
 # DOM과 자바스크립트
 
-DOM이란? (추가바람…ㅎㅎ...)
+### [DOM이란?](https://github.com/Shinye/TIL/blob/master/HTML%2CCSS/DOM.md) 
+
 
 
 
@@ -26,7 +27,7 @@ var foo3 = document.getElementsByName("name");
 var foo4 = document.getElementsByTagName("tagName");
 ```
 
-2~4번 케이스의 경우와 같이 getElements~ method를 통해 복수의 Element 객체가 선택 될 때는 객체들이 `nodeList(Elements의 배열)` 의 형태로 return된다. nodeList의 item들은 일반적인 배열처럼 `index` 를 통해 접근이 가능한다. 2번의 예시에서 4개의 객체가 선택되었다면 `foo2[3]` 의 형태와 같이 아이템을 선택할 수 있다.
+2,3,4번 케이스의 경우와 같이 getElements~ method를 통해 복수의 Element 객체가 선택 될 때는 객체들이 `nodeList(Elements의 배열)` 의 형태로 return된다. nodeList의 item들은 일반적인 배열처럼 `index` 를 통해 접근이 가능한다. 2번의 예시에서 4개의 객체가 선택되었다면 `foo2[3]` 의 형태와 같이 아이템을 선택할 수 있다.
 
 📌 return된 nodeList의 **아이템 개수**가 궁금하면 자바스크립트에서 배열의 길이를 알아보는 API와 동일하게 `.length()` 함수를 사용하면 된다.
 
@@ -166,3 +167,8 @@ foo.style.marginTop = topMarginVal+"px"; // 숫자+"" => 문자열
 
 
 
+<br>
+
+### 참고 URL
+
+[HTML DOM insertBefore() Method](https://www.w3schools.com/jsref/met_node_insertbefore.asp)<br>[CSSStyleDeclaration](https://developer.mozilla.org/ko/docs/Web/API/CSSStyleDeclaration)<br>[HTMLElement.style](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style)<br>책 자바스크립트 완벽 가이드
