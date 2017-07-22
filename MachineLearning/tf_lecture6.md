@@ -16,6 +16,7 @@ Logistic Regression을 부르는 다른 이름은 binary classification이다.<b
 
 각각의 Binary classification을 구현하려면 이렇게 각각의 행렬을 요구한다. 하지만 행렬을 하나하나 작성하는 것은 번거로우니 아래와 같이 W들을 하나의 행렬로 합친다.
 
+
 ![http://cfile26.uf.tistory.com/image/223470395797F43F0A4856](http://cfile26.uf.tistory.com/image/223470395797F43F0A4856)
 
 ![http://cfile23.uf.tistory.com/image/275903345797F4400A3E5F](http://cfile23.uf.tistory.com/image/275903345797F4400A3E5F)
@@ -43,6 +44,7 @@ y를 예측한 이후부터의 과정을 알려주는 그림이다.<br> one-hot 
 
 <br>
 ## Cost function
+
 ![http://cfile8.uf.tistory.com/image/263B2C485797F9C50A59AC](http://cfile8.uf.tistory.com/image/263B2C485797F9C50A59AC)
 Softmax classification의 Cost function을 구현하면 다음과 같이 작성할 수 있다.<br>하지만 그 전에 시그마 뒤의 D가 무엇을 의미하는지에 대해 알 필요가 있다.
 
@@ -58,6 +60,7 @@ S(Y)는 softmax가 예측한 값이고, L(Y)는 실제 Y의 값으로 L은 label
 
 
 ### Gradient Descent
+
 ![http://cfile23.uf.tistory.com/image/2274E5485797F9C637C181](http://cfile23.uf.tistory.com/image/2274E5485797F9C637C181)
 
 
