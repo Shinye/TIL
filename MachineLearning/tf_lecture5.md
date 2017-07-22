@@ -73,5 +73,5 @@ Linear Regression 알고리즘에서 cost 함수와 gradient descent를 구하�
 
 다만 미분에 대한 공식은 달라졌지만, W를 일정 크기만큼 이동시키는 부분은 여전히 동일하기 때문에 앞서 배운 gradient descent 알고리즘을 여기서도 사용할 수 있고, 텐서플로우를 통해 간단히 구현할 수 있다.
 
-
+..
 
