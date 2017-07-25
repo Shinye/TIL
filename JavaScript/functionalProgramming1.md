@@ -53,6 +53,7 @@ let names = animalsARr.map((animal) => animal.name)
 ```
 
 <br>
+
 ## Filter
 
 > Should return true or false value.<br>
@@ -142,6 +143,7 @@ console.log(funcTotal);  // 17
 
 
 ### 참고 URL
-[Functional Programming in Javascript](http://dev-momo.tistory.com/entry/Functional-Programming-in-Javascript)<br>
+[Functional Programming in Javascript](http://dev-momo.tistory.com/entry/Functional-Programming-in-Javascript)
+
 [Higher-order functions - Part 1 of Functional Programming in JavaScript] (https://youtu.be/BMUiFMZr7vk?list=PL0zVEGEvSaeEd9hlmCXrk5yUyqUag-n84)<br>
 [함수형 프로그래밍이란?](https://medium.com/@lazysoul/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%B4%EB%9E%80-d881230f2a5e)
