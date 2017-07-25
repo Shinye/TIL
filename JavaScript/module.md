@@ -382,8 +382,8 @@ export const settings = {
 
 ### 빌드타임 vs 런타임
 - **빌드타임** : 소프트웨어 빌드(software build)는 소스 코드 파일을 컴퓨터에서 실행할 수 있는 독립 소프트웨어 가공물로 변환하는 과정을 말하거나 그에 대한 결과물을 일컫는다.<br> 소프트웨어 빌드 과정에 있어 가장 중요한 단계들 가운데 하나는 소스 코드 파일이 실행 코드로 변환되는 컴파일 과정이다.
-- **런타임** : 컴퓨터 프로그램이 실행되고 있는 동안의 동작을 말한다.
-
+- **런타임** : 컴퓨터 프로그램이 실행되고 있는 동안의 동작, 또는 프로그래밍 언어의 실행(구동) 환경.<br>즉, 컴퓨터 내에서 프로그램이 기동되면, 그것이 바로 그 프로그램의 런타임이다.<br>
+ex. NodeJS는 V8엔진으로 빌드 된 `자바스크립트 런타임` 입니다. 👉 NodeJS는 JS의 실행환경 중 하나!
 
 ### 참고 URL
 [JavaScript 표준을 위한 움직임: CommonJS와 AMD](http://d2.naver.com/helloworld/12864)<br>[자바스크립트 모듈, 모듈 포맷, 모듈 로더와 모듈 번들러에 대한 10분 입문서](https://github.com/codepink/codepink.github.com/wiki/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%AA%A8%EB%93%88,-%EB%AA%A8%EB%93%88-%ED%8F%AC%EB%A7%B7,-%EB%AA%A8%EB%93%88-%EB%A1%9C%EB%8D%94%EC%99%80-%EB%AA%A8%EB%93%88-%EB%B2%88%EB%93%A4%EB%9F%AC%EC%97%90-%EB%8C%80%ED%95%9C-10%EB%B6%84-%EC%9E%85%EB%AC%B8%EC%84%9C)<br>[
