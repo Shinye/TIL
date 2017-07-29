@@ -23,9 +23,14 @@ Logistic Regression을 부르는 다른 이름은 binary classification이다.<b
 
 그렇다면 binary classification을 여러 번 적용해서 구한 행렬에 대해 `sigmoid` 를 적용하는 곳은 어디일까?<br>
 
+![http://cfile6.uf.tistory.com/image/2650FD4F5797F9C030C81D](http://cfile6.uf.tistory.com/image/2650FD4F5797F9C030C81D)
+
+그림 중간에 빨강색으로 표시된 2.0, 1.0, 0.1이 예측된 Y의 값이다. 이것을 Y hat이라고 부른다고 했다. 이 값은 W에 X를 곱하기 때문에 굉장히 크거나 작은 값일 수 있다. 그래서, 이 부분 뒤쪽에 sigmoid가 들어가서 값을 0과 1 사이로 조정하게 된다.
+
+
 ![http://cfile29.uf.tistory.com/image/214D6A4F5797F9C131EB8C](http://cfile29.uf.tistory.com/image/214D6A4F5797F9C131EB8C)
 
-binary classification을 실행한 것이므로 WX 행렬을 곱한 값을 0과 1 사이의 값으로 만들어야 한다.<br><br>그림에서 예측한 결과 y가 1개가 아니라 3개라는 점은 중요하다.<br> 선택 가능한 옵션이 a, b, c의 3개가 있어서 binary classification을 3개 사용했고 각각의 결과를 저장해야 하므로 3개가 된다. binary classification을 세 번에 걸쳐 적용하고 있다는 것을 기억하자.
+binary classification을 실행한 것이므로 WX 행렬을 곱한 값(Y hat)을 0과 1 사이의 값으로 만들어야 한다.<br><br>그림에서 예측한 결과 y가 1개가 아니라 3개라는 점은 중요하다.<br> 선택 가능한 옵션이 a, b, c의 3개가 있어서 binary classification을 3개 사용했고 각각의 결과를 저장해야 하므로 3개가 된다. binary classification을 세 번에 걸쳐 적용하고 있다는 것을 기억하자.
 
 이들 값을 0과 1 사이의 값으로 바꾸니까, 각각 0.7, 0.2, 0.1이 됐다. 이들을 모두 더하면 1이 된다. a, b, c 중에서 하나를 고르라면 a를 선택하게 된다.
 
@@ -43,9 +48,10 @@ softmax는 두 가지 역할을 수행한다.<br>
 y를 예측한 이후부터의 과정을 알려주는 그림이다.<br> one-hot encoding은 softmax로 구한 값 중에서 가장 큰 값을 1로, 나머지를 0으로 만든다. 텐서플로우에서는 `argmax 함수` 라는 이름으로 제공하고 있다.
 
 <br>
+
 ## Cost function
 
-![http://cfile8.uf.tistory.com/image/263B2C485797F9C50A59AC](http://cfile8.uf.tistory.com/image/263B2C485797F9C50A59AC)
+![http://cfile8.uf.tistory.com/image/263B2C485797F9C50A59AC](http://cfile8.uf.tistory.com/image/263B2C485797F9C50A59AC)<br>
 Softmax classification의 Cost function을 구현하면 다음과 같이 작성할 수 있다.<br>하지만 그 전에 시그마 뒤의 D가 무엇을 의미하는지에 대해 알 필요가 있다.
 
 ### Cross entropy
@@ -65,4 +71,6 @@ S(Y)는 softmax가 예측한 값이고, L(Y)는 실제 Y의 값으로 L은 label
 
 
 
+### 교수님이 내신 숙제
 
+![http://cfile25.uf.tistory.com/image/2450884F5797F9C42E89E5](http://cfile25.uf.tistory.com/image/2450884F5797F9C42E89E5)
