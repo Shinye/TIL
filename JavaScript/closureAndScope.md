@@ -207,7 +207,135 @@ document.getElementById("size_18").onclick = size18;
 
 ### 2. 클로저를 이용해서 프라이빗 메소드 (private 메소드) 흉내내기
 
+일반적인 객체지향 프로그래밍에서 말하는 `private` 은, 해당 메소드/프로퍼티가 속해있는 클래스 내의 요소만이 접근할 수 있게 만들어 핵심적인 프로퍼티나 메소드가 오염되는 것을 막는 역할을 한다.
+
+하지만 자바스크립트에서는 private을 공식적으로 제공해주지 않는다. 따라서 함수 안에 내부 함수를 구현할 수 있으며,  return값으로 함수를 쓸 수 있는 [자바스크립트 함수의 특징](https://github.com/Shinye/TIL/blob/master/JavaScript/aboutFunction.md) 을 기반으로 클로져를 통해 프라이빗 메소드를 구현할 수 있다.
+
+프라이빗 메소드는 코드에 제한적인 접근만을 허용한다는 점 뿐만 아니라, 전역 네임 스페이스를 관리하는 강력한 방법을 제공하여 불필요한 메소드가 공용 인터페이스(전역변수)를 혼란스럽게 만들지 않도록 한다.
+
+아래는 프라이빗 함수와 프라이빗 변수에 접근하는 퍼블릭 함수를 정의할 수 있는 클로저를 사용하는 방법을 보여주는 코드가 있다. 이렇게 클로저를 사용하는 것을 `모듈 패턴` 이라 한다.
+
+```javascript
+var counter = (function() {
+  var privateCounter = 0;
+  function changeBy(val) {
+    privateCounter += val;
+  }
+  
+  return {
+    increment: function() {
+      changeBy(1);
+    },
+    decrement: function() {
+      changeBy(-1);
+    },
+    value: function() {
+      return privateCounter;
+    }
+  };   
+})();
+
+console.log(counter.value()); // logs 0
+counter.increment();
+counter.increment();
+console.log(counter.value()); // logs 2
+counter.decrement();
+console.log(counter.value()); // logs 1
+```
+
+이 예제에서는 counter.increment, counter.decrement, counter.value 세 함수에 의해 공유되는 하나의 문법적 환경이 만들어져 있음을 알 수 있다.
+
+공유되는 문법적 환경은 정의되자마자 실행되는 익명 함수 안에서 만들어진다. 이 문법적 환경은 두 개의 프라이빗 아이템을 포함한다. 하나는 privateCounter라는 변수이고 나머지 하나는 changeBy라는 함수이다. 둘 다 외부에서 직접적으로 익명 함수 접근할 수 없다. 대신에 익명 래퍼(감싸고 있는 익명함수를 뜻하는듯 함) ㄴ에서 반환된 세 개의 퍼블릭 함수를 통해서만 접근되어야만 한다.
+
+위의 세 가지 퍼블릭 함수는 같은 환경을 공유하는 클로저이다. 자바스크립트 문법적 스코핑(유효범위, lexical scoping) 덕분에 세 함수 모두 privateCounter 변수와 changeBy 함수에 접근할 수 있다.
+
+카운터를 생성하는 익명 함수를 정의하고 그 함수를 즉시 호출하고 결과를 counter 변수에 할당하는 것을 알아차렸을 것이다. 이 함수를 별도의 변수 makeCounter 저장하고 이 변수를 이용해 여러 개의 카운터를 만들수도 있다.
+
+```javascript
+var makeCounter = function() {
+  var privateCounter = 0;
+  function changeBy(val) {
+    privateCounter += val;
+  }
+  return {
+    increment: function() {
+      changeBy(1);
+    },
+    decrement: function() {
+      changeBy(-1);
+    },
+    value: function() {
+      return privateCounter;
+    }
+  }  
+};
+
+var Counter1 = makeCounter();
+var Counter2 = makeCounter();
+alert(Counter1.value()); /* 0 */
+Counter1.increment();
+Counter1.increment();
+alert(Counter1.value()); /* 2 */
+Counter1.decrement();
+alert(Counter1.value()); /* 1 */
+alert(Counter2.value()); /* 0 */
+```
+
+<br>
+
+### 📌 네임스페이스
+
+네임스페이스(namespace)는 구분이 가능하도록 정해놓은 범위나 영역을 뜻한다. 즉, 말 그대로 이름 공간을 선언하여 다른 공간과 구분하도록 한다.
+
+네임스페이스가 무엇인가를 정의하기에 앞서서 파일을 생각해보자.<br> 파일은 데이터를 보관하고 있는 일종의 컨테이너다. 그리고 이 컨테이너는 파일명으로 식별이 된다. 파일의 수가 많아지면서 파일을 관리하는 것이 점점 어려워진다. 그래서 고안된 것이 바로 디렉토리다. 디렉토리를 이용하면 같은 이름의 파일이 하나의 컴퓨터에 존재할 수 있다. 파일명의 충돌을 회피 할 수 있게 된 것이다. <br>네임스페이스란 간단하게 디렉토리와 같은 것이라고 생각하자. 하나의 에플리케이션에는 다양한 모듈을 사용하게 된다. 그런데 모듈이 서로 다른 개발자에 의해서 만들어지기 때문에 같은 이름을 쓰는 경우가 생길 수 있다. 이런 경우 먼저 로드된 모듈은 나중에 로드된 모듈에 의해서 덮어쓰기 되기 때문에 이에 대한 대책이 필요하다. 네임스페이스가 필요해지게 되는 것이다. 
+
+자바스크립트에는 네임스페이스에 대해 특별히 지원하는 바가 없지만 자바스크립트 객체나 모듈을 그러한 목적으로 사용할 수 있다. 
+
+네임스페이스 내에서 작성된 변수나 함수를 사용하고 싶다면  네임스페이스명.변수명(혹은 함수명) 의 형식으로 작성하면 이름의 중복으로 인한 덮어쓰기 걱정 없이 관리가 가능하다.
+
+결국 네임스페이싱(namespacing)은 객체나 변수가 겹치지 않는 안전한 소스코드를 만드는 개념이다. 하지만 JavaScript는 아직까지 네임스페이싱을 위한 기능을 지원하지 않기 때문에 다음의 특성을 통해 네임스페이스와 비슷한 효과를 얻을 수 있다.
+
+- JavaScript의 모든 객체는 프로퍼티를 가진다.
+- 그 프로퍼티는 다시 다른 객체를 담을 수 있다.<br>
+
+이러한 네임스페이싱 코딩 기법들을 `네임스페이스 패턴(namespace pattern)` 이라고 한다.
+
+다음은 네임스페이스 패턴의 예시이다.
+
+```javascript
+// 하나의 전역 객체
+var MYAPP = {};
+
+MYAPP.Parent = function() { console.log('Parent'); };  
+MYAPP.Child = function() { console.log('Child'); };
+
+MYAPP.variable = 1;
+
+// 객체 컨테이너
+MYAPP.modules = {};
+
+// 객체들을 컨테이너 안에 추가합니다.
+MYAPP.modules.module1 = {};  
+MYAPP.modules.module1.data = {a: 1, b: 2};  
+MYAPP.modules.module2 = {};
+
+MYAPP.Parent();                               // Parent 출력  
+console.log(MYAPP.modules.module1.data.a);    // 1 출력  
+MYAPP.Child();                                // Child 출력  
+```
+
+이 패턴은 코드 내에서 뿐 아니라 같은 페이지에 존재하는 JS 라이브러리나 서드 파티 코드(third-party code)와의 이름 충돌도 방지해 주며 체계적이라는 장점이 있다. 따라서 모듈이 네임스페이스의 역할을 해준다는 개념이 성립한다. 하지만 다음과 같은 단점도 존재한다.
+
+- 모든 변수와 함수에, 상위 객체 명을 모두 붙여야 하기 때문에 소스코드량이 늘어납니다. 결국 그에 따라 다운로드해야 하는 파일의 크기도 늘어나게 된다.
+
+- 전역 인스턴스가 단 하나뿐이기 때문에 코드의 어느 한 부분이 수정되어도 전역 인스턴스를 수정하게 됩니다. 계속해서 나머지 기능들도 갱신된 상태를 물려받게 된다.
+
+- 매번 객체에 접근하는데다, 이름이 중첩되고 길어지므로 검색이 느려지게 된다.
 
 
+
+
+### 참고 URL
+[JavaScript: 네임스페이스 패턴(Namespace Pattern) 바로 알기](http://www.nextree.co.kr/p7650/)<br>[모듈과 네임스페이스](http://codingnuri.com/javascript-tutorial/javascript-modules-and-namespaces.html)<br>[MDN-클로져](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures)<br>[JavaScript Closures and the Module Pattern](https://www.joezimjs.com/javascript/javascript-closures-and-the-module-pattern/)<br>[Practical Uses for Closures](https://medium.com/written-in-code/practical-uses-for-closures-c65640ae7304)
 
 
