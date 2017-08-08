@@ -6,9 +6,11 @@
 
 > 다음의 글은 자바스크립트의 변수를 나타낼 때 쓰는 `var` 을 기준으로 한 유효범위의 설명입니다.<br> var은 함수 기준의 유효범위이지만 ES6의 `let` , `const` 는 `블록 {}` 를 기준으로 유효범위를 가집니다. 따라서 ES6가 상용화 된 이후부터는 let, const의 사용이 권장되고 var은 서서히 죽은 문법이라는 의견이 주를 이루고 있습니다.<br> let과 const에 대한 설명은 [여기](https://github.com/Shinye/TIL/blob/master/JavaScript/var_let_const.md)에서!
 
-변수의 유효범위란 다른 프로그래밍 언어에서도 알 수 있듯, 프로그램에서 어떤 변수가 정의되어 있는 영역을 말한다.
+변수의 유효범위란 다른 프로그래밍 언어에서도 알 수 있듯, 프로그램에서 어떤 변수가 정의되어 있는 영역을 말한다.<br> 영어의 뜻을 가져와서 설명해보면, 현재 자신의 위치에서 볼 수 있는 변수들을 결정하는 방법인 것이다. 자신의 scope 안에 있다면 접근이 가능하여 변수를 읽거나 쓸 수 있는 것이고, scope 밖에라면 해당하는 변수는 접근이 불가능한 것이다.
 
-`전역변수`는 코드 전체에 걸쳐 모든 곳에서 유효한 것이고, `지역변수`는 어떤 **함수** 안에서 선언된 변수로 오직 해당 함수 몸체 안에서만 정의된다. (함수의 매개변수로 받아오는 변수도 지역변수이다 물론!)
+다시 말해, "정의된 변수를 사용 가능한 소스 코드의 집합" 이다.
+
+`전역변수`는 코드 전체에 걸쳐 모든 곳에서 유효한 것이고, `지역변수`는 어떤 **함수** 안에서 선언된 변수로(let,const의 경우 블록 안에 선언된 지역 변수가 되겠다.) 변수가 선언된 함수 전체에 걸쳐 유효하고, 그 안에 중첩된 함수 내에서도 유효하다. (함수의 매개변수로 받아오는 변수도 지역변수이다 물론!)
 
 자바, C++과 같은 프로그래밍 언어에서는 '블록단위' 에 따라 지역변수의 유효범위가 결정되었다. 해당 블록`{}` 안에 선언된 지역변수는 블럭을 벗어난 곳에서는 보이지 않는다. <br>하지만 자바스크립트는 블록 단위 개념의 유효범위가 없고, 대신 `함수 단위`의 유효범위가 존재한다. 따라서 함수 안에 정의된 지역변수는 해당 변수가 정의된 함수 안에서 보이는 것 뿐만 아니라, 그 함수 안에 중첩 된 함수 안에서도 유효하다.
 
@@ -112,9 +114,84 @@ console.log(foo()); // 3
 console.log(x+y); // 3
 ```
 
+<br>
 
+## 스코프 체인 (Scope Chain)
+
+자바스크립트에서 **함수를 생성할 때** 일반적인 코드 구조나 블럭 외에, 유효범위를 탐색하기 위한 속성도 만들어진다. 이를 `스코프(유효범위) 체인` 이라고 부른다. 
+
+이 스코프 체인은 일종의 (대표적 자료구조 중 하나인) 스택 같은 컬렉션 형태를 가지고 있으며, `Variable Object(변수 객체)` 를 요소로 가지고 있다.<br>📌 `Variable Object`란? 어떤 코드가 실행될 때, 찾을 변수(variable, function, function parameter 등등)를 키와 값으로 가진 객체를 말한다.
+
+정리하자면, `스코프 체인` 은 다음과 같이 정의할 수 있다.
+
+- 함수가 생성될 때 같이 생성되는 변수 객체(Variable object)의 컬렉션.
+- 요소로 변수 객체를 가진다.
+- 변수를 찾을 때 이 컬렉션을 스택처럼 사용하게 된다.
+
+함수가 생성될 때 만들어지는 이 스코프 체인은, 함수 객체의 프로퍼티(속성)인 `[[scope]]` 를 통해 참조되어진다. <br> 이때 이 Variable Object들에 대한 연결들을 Scope Chain 으로 관리하고 [[scope]]를 통해 Scope Chain을 참조하여 함수객체가 가지는 유효범위를 설정하게 되는 것이다.
+
+지금까지 설명한 것을 그려보자면 다음과 같다.<br>
+![https://68.media.tumblr.com/7323cd2bddb62d4bd3af5784a1c671bb/tumblr_oudc5eeK7H1v80c66o1_1280.png](https://68.media.tumblr.com/7323cd2bddb62d4bd3af5784a1c671bb/tumblr_oudc5eeK7H1v80c66o1_1280.png)
+
+변수의 검색은 이 scope chain에 의해서만 탐색된다.<br>스코프 체인의 하위([0])에서 부터 상위로 거슬러 올라가며 등록된 변수가 있는지 확인해가는 과정을 갖는다. 가장 먼저 탐색되는 변수를 선택할 것이고, 끝까지 스코프 체인을 탐색해도 찾는 변수가 없을 시엔 `undefined` 를 띄운다.<br>예를 들어, 전역변수 x와 지역변수 x가 동일한 이름으로 사용이 가능한 이유는 이처럼 각각 x에 접근하기 위해 참조하는 Variable Object가 다르기 때문인 것이다.
+
+그렇다면 실제로 코드에서 스코프체인과 변수 객체가 정확히 어떻게 동작하는지 확인해보자.
+
+> 하단의 설명과 예시들은 [여기](http://blog.javarouka.me/2012/01/closure.html)에서 참고 및 재구성 하였습니다.
+
+```javascript
+var v = "global_context";
+function showVar(i) {
+    return i+v;
+}
+```
+
+이 코드의 스코프 체인은 다음과 같은 구조를 가지고 있다.
+
+![https://drive.google.com/uc?id=0B3Or0Wv2t1xwNGljczk2ZVFTRWc](https://drive.google.com/uc?id=0B3Or0Wv2t1xwNGljczk2ZVFTRWc)
+
+자바스크립트에서 함수를 **실행**하면, 자바스크립트 엔진은 먼저 `실행 문맥(Execution context)`을 생성한다. <br>실행문맥과 함수는 1:1 관계가 아니고, 함수가 실행될 때 마다 실행문맥이 하나씩 생성되는 것이다.
+
+실행 문맥은 스택에 차례대로 쌓이게 되고, 실행이 되고 난 후에는 파괴되는 것이 일반적이다.
+
+실행문맥은 함수를 실행시키기 위해 어떤 사전작업을 수행하는데, 그 중 하나는 해당 함수가 가진 `스코프 체인` 을 자신(실행문맥)의 스코프 체인으로 복사하는 일이다. 실행 문맥 또한 스코프 체인을 통해 유효범위를 검사하기 때문이다.
+
+그 뒤 실행문맥은 `활성 객체(Activation Object)` 라는 변수 객체를 하나 만들어서, 자신(실행문맥)의 스코프 체인의 맨 앞([0])에 삽입한다.<br>이 활성 객체는 **함수 단위의 유효범위(다시 말해 함수 내부의)에서 정의 된** 지역 변수들, 함수명, 인자, this 등의 특수한 변수까지 포함한 변수객체이다.
+
+정리하자면,<br>
+**실행 문맥 (Execution Conext)**
+
+- 코드가 실행될 때마다 생성되는, 실행 환경을 정의하고 실제 실행하는 내부 객체.
+- 실행 후 파괴되어 없어진다.
+
+**활성 객체 (Activation Object)**
+
+- 함수가 실행될 때 실행 문맥에 의해 생성되며, 해당 함수 자체에 대한 변수 객체가 된다.
+- 때때로 호출 객체 (Call Object) 라고도 불린다.
+- 지역변수, this, arguments등이 포함되어 있고 실행문맥의 스코프 체인 맨 앞에 온다.
+
+실행 문맥은 코드를 실행하면서 변수나 프로퍼티를 만날 경우 실행중인 영역이 가진, 스코프 체인을 순서대로 넘기면서 해당 변수와 프로퍼티를 찾아 값을 참조하면서 코드를 실행시킨다.
+
+위의 예시 코드 하단에 `showVar("This is ");` 를 추가하여 showVar() 함수를 실행한다면, showVar함수 실행문맥의 스코프체인은 다음과 같은 구조를 갖게 될 것이다.
+
+![https://drive.google.com/uc?id=0B3Or0Wv2t1xwclJCODJlYVZqSTQ](https://drive.google.com/uc?id=0B3Or0Wv2t1xwclJCODJlYVZqSTQ)
+
+index 0의 변수 객체 부터 차례대로 원하는 변수의 값을 찾을 수 있을 것이다.
+
+### 클로저와 스코프체인
+여기서부터 작성하시오옹ㅇ오오오오오오오ㅗ오
+
+
+
+![https://68.media.tumblr.com/929b25aed28e2e6d7bbf33668be91b38/tumblr_oud0jaef0O1v80c66o1_1280.jpg](https://68.media.tumblr.com/929b25aed28e2e6d7bbf33668be91b38/tumblr_oud0jaef0O1v80c66o1_1280.jpg)
+[자바스크립트 완벽가이드](http://www.insightbook.co.kr/book/programming-insight/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C) 책에 나오는 유효범위 체인의 예시에 대한 구절이다. 위의 설명이 줄글로 다시 작성되어 있다.
+
+위의 예시를 코드와 다이어그램으로 잘 표현한 [포스팅](http://meetup.toast.com/posts/86)이 있어 첨부한다.
+![http://image.toast.com/aaaadh/alpha/2016/techblog/scopchain.png](http://image.toast.com/aaaadh/alpha/2016/techblog/scopchain.png)
 
 ## 클로져
+
+### 📌 [람다](https://github.com/Shinye/TIL/blob/master/JavaScript/lambda.md) 개념과 함께 보기!🙂
 
 > Function body has access to variables that are defined outside the function.
 
@@ -146,15 +223,17 @@ myFunc(); // Mozilla
 하지만 자바스크립트의 함수는 `클로져` 를 형성하기에 이를 가능하게 한다.
 
 클로저는 함수와 함수가 선언된 문법적 환경의 조합이다.<br> 이 환경은 클로저가 생성된 시점의 범위 내에 있는 모든 지역 변수로 구성된다. 위의 경우, myFunc은 makeFunc이 실행될 때 생성된 displayName 함수의 인스턴스에 대한 참조다. displayName의 인스턴스는 그 변수, name 이 있는 문법적 환경에 대한 참조를 유지한다.그러므로 myFunc가 호출될 때 그 변수, name은 사용할 수 있는 상태로 남게 되고 "Mozilla" 가 alert 에 전달된다.
-<br> 
+<br> <br>
 
 ## 클로져의 응용
 
 > Closures are useful because they let you associate some data (in the lexical environment) with a function that operates on that data. This has obvious parallels to object oriented programming, where objects allow us to associate some data (the object's properties) with one or more methods.
 
+### 1. 반복문 클로져
 
 
-### 1. 페이지의 글자 크기를 조정하는 몇 개의 버튼을 추가하기
+
+### 2. 페이지의 글자 크기를 조정하는 몇 개의 버튼을 추가하기
 
 > Situations where you might want to do this are particularly common on the web. Much of the code we write in front-end JavaScript is event-based — we define some behavior, then attach it to an event that is triggered by the user (such as a click or a keypress). Our code is generally attached as a callback: a single function which is executed in response to the event.
 
@@ -205,7 +284,7 @@ document.getElementById("size_18").onclick = size18;
 ```
 
 
-### 2. 클로저를 이용해서 프라이빗 메소드 (private 메소드) 흉내내기
+### 3. 클로저를 이용해서 프라이빗 메소드 (private 메소드) 흉내내기
 
 일반적인 객체지향 프로그래밍에서 말하는 `private` 은, 해당 메소드/프로퍼티가 속해있는 클래스 내의 요소만이 접근할 수 있게 만들어 핵심적인 프로퍼티나 메소드가 오염되는 것을 막는 역할을 한다.
 
@@ -336,6 +415,6 @@ MYAPP.Child();                                // Child 출력
 
 
 ### 참고 URL
-[JavaScript: 네임스페이스 패턴(Namespace Pattern) 바로 알기](http://www.nextree.co.kr/p7650/)<br>[모듈과 네임스페이스](http://codingnuri.com/javascript-tutorial/javascript-modules-and-namespaces.html)<br>[MDN-클로져](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures)<br>[JavaScript Closures and the Module Pattern](https://www.joezimjs.com/javascript/javascript-closures-and-the-module-pattern/)<br>[Practical Uses for Closures](https://medium.com/written-in-code/practical-uses-for-closures-c65640ae7304)
+[JavaScript: 네임스페이스 패턴(Namespace Pattern) 바로 알기](http://www.nextree.co.kr/p7650/)<br>[모듈과 네임스페이스](http://codingnuri.com/javascript-tutorial/javascript-modules-and-namespaces.html)<br>[MDN-클로져](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures)<br>[JavaScript Closures and the Module Pattern](https://www.joezimjs.com/javascript/javascript-closures-and-the-module-pattern/)<br>[Practical Uses for Closures](https://medium.com/written-in-code/practical-uses-for-closures-c65640ae7304)<br>[클로저(Closure) 사용에는 주의가 필요합니다](http://blog.javarouka.me/2012/01/closure.html)<br>[javascript 기초 - Scope, Scope Chain & arguments](http://insanehong.kr/post/javascript-scope/)
 
 
