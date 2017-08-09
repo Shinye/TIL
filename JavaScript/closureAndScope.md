@@ -146,7 +146,7 @@ function showVar(i) {
 }
 ```
 
-이 코드의 스코프 체인은 다음과 같은 구조를 가지고 있다.
+showVar함수가 정의 되었을 때, 이 코드의 스코프 체인은 다음과 같은 구조를 가지고 있다.
 
 ![https://drive.google.com/uc?id=0B3Or0Wv2t1xwNGljczk2ZVFTRWc](https://drive.google.com/uc?id=0B3Or0Wv2t1xwNGljczk2ZVFTRWc)
 
@@ -179,14 +179,52 @@ function showVar(i) {
 index 0의 변수 객체 부터 차례대로 원하는 변수의 값을 찾을 수 있을 것이다.
 
 ### 클로저와 스코프체인
-여기서부터 작성하시오옹ㅇ오오오오오오오ㅗ오
 
+당연하게도, 스코프 체인이 가지고 있는 변수 객체의 개수가 많아질수록 검색 시간이 늘어나므로 코드의 효율은 떨어진다. 이러한 단점은 클로저와 연관이 있다.
 
+```javascript
+function hello() {
+    var f = "hello, ";
+    function world() {
+        alert(f + "world");
+    }
+    return world;
+};
+var say = hello();
+```
+
+다음과 같은 클로저 코드의 예시가 있다.
+
+hello() 함수를 실행하기 위한 `실행 문맥` 이 생성되고, 해당 실행 문맥의 스코프 체인에 hello 함수가 생성될 때 만들어진 스코프 체인의 변수객체를 복사한다. 그리고 hello함수 내부의 정보들에 대한 변수객체인 `활성객체` 를 실행문맥의 스코프 체인 가장 앞에 둔다.
+
+그리고 hello()함수의 실행 결과로 얻어진 클로저 say의 스코프 체인도 형성된다.<br>
+클로저 say의 스코프 체인에는 우선 글로벌 변수 객체들이 삽입되고, 그 다음 실행 문맥이 생성한 hello의 활성화 객체가 변수 객체로 삽입된다. (클로져 say에게로 할당 된 (hello함수 내부의) world 함수가 가지는 스코프 체인 내의 변수객체가 할당된 거라고 이해해도 될까...?😳)
+
+위의 설명을 토대로 구조화한 클로져 say의 scope chain은 다음과 같을 것이다.
+
+![https://drive.google.com/uc?id=0B3Or0Wv2t1xwWTF4UE1oRmRKbjg](https://drive.google.com/uc?id=0B3Or0Wv2t1xwWTF4UE1oRmRKbjg)
+
+앞서 설명한 바와 같이, 일반적으로 활성화 객체는 해당 실행 문맥이 종료되면 함께 없어지는 특성을 가지고 있다. 하지만 클로져의 경우는 활성화객체가 없어지지 않고 클로져의 스코프체인 안에 남아있는 것을 확인할 수 있다.<br>클로저가 다수 생성되고, 그것을 해제해주지 않는다면 다수의 활성화 객체가 생성된채로 남고 이것은 문제가 된다.
+
+이제 클로저 say를 실행해 보자.<br>
+클로저 say가 실행되면 역시 실행 문맥이 만들어지고 say의 스코프 체인을 실행 문맥의 스코프 체인에 복사한 뒤, say를 위한 새로운 활성화 객체가 생성되고 스코프 체인의 앞에 삽입된다.
+
+![https://drive.google.com/uc?id=0B3Or0Wv2t1xwenBqaEN6T3lvOTg](https://drive.google.com/uc?id=0B3Or0Wv2t1xwenBqaEN6T3lvOTg)
+
+다른 일반적 함수와 다르게 스코프 체인이 하나 더 늘었을 뿐 아니라 자주 접근해야 할 글로벌 오브젝트 변수 객체가 제일 마지막이라 검색시간이 늘어나게 된다는 단점이 생긴다.
+
+클로저의 단점은 다음과 같이 정리할 수 있다.
+
+- 클로저는 클로저를 생성한 함수의 활성화 객체를 그대로 가지고 있게 되어 의도치 않은 메모리 낭비가 발생할 수 있다.
+- 클로저 실행 시, 불필요한 스코프 탐색을 하게 되어 성능이 나빠진다.
+
+하지만 클로저가 가지는 장점 역시 많으니 적재적소에 쓰인다면 더 나은 코드를 작성할 수 있을 것이다.
 
 ![https://68.media.tumblr.com/929b25aed28e2e6d7bbf33668be91b38/tumblr_oud0jaef0O1v80c66o1_1280.jpg](https://68.media.tumblr.com/929b25aed28e2e6d7bbf33668be91b38/tumblr_oud0jaef0O1v80c66o1_1280.jpg)
 [자바스크립트 완벽가이드](http://www.insightbook.co.kr/book/programming-insight/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C) 책에 나오는 유효범위 체인의 예시에 대한 구절이다. 위의 설명이 줄글로 다시 작성되어 있다.
 
 위의 예시를 코드와 다이어그램으로 잘 표현한 [포스팅](http://meetup.toast.com/posts/86)이 있어 첨부한다.
+
 ![http://image.toast.com/aaaadh/alpha/2016/techblog/scopchain.png](http://image.toast.com/aaaadh/alpha/2016/techblog/scopchain.png)
 
 ## 클로져
