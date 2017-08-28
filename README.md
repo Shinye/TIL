@@ -8,17 +8,17 @@
 
 ## Categories
 
-- Algorithm
-- Data Structure
-- Database
-- HTML,CSS
-- JavaScript
-- Linux
-- Machine Learning
-- Network
-- Python
-- WebBaseStudy
-- Cracking Coding Interview
+- [Algorithm](https://github.com/Shinye/TIL#algorithm)
+- [Data Structure](https://github.com/Shinye/TIL#data-structure)
+- [Database](https://github.com/Shinye/TIL#database)
+- [HTML,CSS](https://github.com/Shinye/TIL#htmlcss)
+- [JavaScript](https://github.com/Shinye/TIL#javascript)
+- [Linux](https://github.com/Shinye/TIL#linux)
+- [Machine Learning](https://github.com/Shinye/TIL#machine-learning)
+- [Network](https://github.com/Shinye/TIL#network)
+- [Python](https://github.com/Shinye/TIL#python)
+- [WebBaseStudy](https://github.com/Shinye/TIL#web-base-study)
+- [Cracking Coding Interview](https://github.com/Shinye/TIL#cracking-the-coding-interview)
 
 ------
 
