@@ -11,6 +11,7 @@
 - [Algorithm](https://github.com/Shinye/TIL#algorithm)
 - [Data Structure](https://github.com/Shinye/TIL#data-structure)
 - [Database](https://github.com/Shinye/TIL#database)
+- [Git](https://github.com/Shinye/TIL#git)
 - [HTML,CSS](https://github.com/Shinye/TIL#htmlcss)
 - [JavaScript](https://github.com/Shinye/TIL#javascript)
 - [Linux](https://github.com/Shinye/TIL#linux)
@@ -46,6 +47,10 @@
 - [맥에서 MySQL 설치 후 환경설정하기](https://github.com/Shinye/TIL/blob/master/Database/mysql_in_mac.md)
 - [관계대수](https://github.com/Shinye/TIL/blob/master/Database/DB_RelationalAlgebra1.md)
 
+
+### Git
+
+- [Git 원격 저장소 URL 변경하기](https://github.com/Shinye/TIL/blob/master/Git/modifyRemoteURL.md)
 
 
 ### HTML,CSS
@@ -135,7 +140,6 @@
 
 - [비트연산자](https://github.com/Shinye/TIL/blob/master/crackingCodingInterview/bitwise_operation.md)
 - [알고리즘에서 쓰이는 수학과 확률](https://github.com/Shinye/TIL/blob/master/crackingCodingInterview/algoMath.md)
-
 
 
 ------
