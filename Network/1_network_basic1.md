@@ -1,11 +1,12 @@
-#컴퓨터 네트워크 기본1
-##데이터 통신 및 네트워크의 개념
+# 컴퓨터 네트워크 기본1
+## 데이터 통신 및 네트워크의 개념
 두 객체가 어떤 약속을 통해 서로 무언가를 주고받는 것.
-###데이터
+
+### 데이터
 - 문자, 숫자, 화상, 음성 등
 - 컴퓨터 시스템에서의 데이터는 '비트' (이진수)
 
-###통신(Communication)
+### 통신(Communication)
 - 정보를 공유하는 것
 - 두 사람 혹은 장치에서,
 - 정보의 공유를 위해
@@ -13,10 +14,11 @@
 - 동선, 광섬유, 혹은 무선링크를 포함하는 전송 매체를 통해
 - 기호나 표시 등을 사용하여 한 지점에서 다른 지점으로 정보를 전달하는 과정
 
-###네트워크
+### 네트워크
 통신되고자 하는 객체들의 '집합'.<br>
 **데이터의 송/수신을 원하는 객체들을 전송 매체로 연결해서, 정해진 규칙 아래 데이터를 교환하는 시스템.**<br>
-####필수 구성요소
+
+**필수 구성요소**
 
 - **메세지 (Message)** - 데이터<br>
 데이터 통신을 원하는 정보(텍스트, 숫자, 그림, 비디오, 비디오 정보 등..)
@@ -29,7 +31,8 @@
 - **프로토콜(Protocol)**<br>
 데이터 통신과 관련된 **규칙**들로 구성, 통신 장치간의 상호 합의<br><br>
 
-###기초 용어
+### 기초 용어
+
 - **네트워크**<br>
 전송 매체로 연결된 시스템의 모음 <br>
 작은 네트워크'들' + 표준화(프로토콜을 fix시킴-국제적인 프로토콜) => 인터넷<br>
@@ -50,7 +53,7 @@
 공통 기능 : IP(Internet Protocol) - 숫자를 통해 전 세계의 모든 시스템을 unique하게 만듦.<br><br>
 
 
-##Network Edge
+## Network Edge
 수행 기능에 따라 시스템을 구분한다.<br>
 - 노드(node) : 인터넷에 연결된 가장 일반적인 용어(라우터, AP ...)<br>
 - 호스트(host) : 컴퓨팅 기능이 있는 시스템(코딩레벨..논리적 레벨..web,email 등)<br>
@@ -61,6 +64,7 @@
 ### Connection Oriented Service [vs] Connectionless Service
 (해당 내용 차후에 다시 수정 바람)
 통신에는 연결 지향 방식, 비연결 지향 방식이 있다.
+
 #### 1. Connection Oriented Service : TCP
 
 TCP : Transmission Control Protocol 의 약자.<br>
@@ -82,7 +86,7 @@ TCP : Transmission Control Protocol 의 약자.<br>
 HTTP(@web), FTP(File Transfer Protocol), Telnet(remote login), SMTP(email) ...
 
 
-####2. Connectionless Service : UDP
+#### 2. Connectionless Service : UDP
 UDP : User Datagram Protocol<br>
 비연결지향 프로토콜. 각각의 패킷들이 **독립적으로** 다루어진다.
 
@@ -96,10 +100,10 @@ UDP : User Datagram Protocol<br>
 - **No Congestion(혼잡) Control<br>**<br>
 
 
-##Network Switching
+## Network Switching
 데이터를 목적지까지 정확하게 전송하기 위한 중개(제3자로써 두 당사자 사이에 서서 일을 주선하는..) 작업
 
-###1. 회선 교환망 (Circuit Switching)
+### 1. 회선 교환망 (Circuit Switching)
 
 - 음성 전화 시스템에서 발전하였다.
 - 두 종단(end-to-end)시스템 사이에 회선이라는 **'전용선로'** 사용
@@ -108,10 +112,10 @@ UDP : User Datagram Protocol<br>
 - 고정 대역 할당으로 안정적인 전송률 지원.
 
 
-###2. 패킷 교환망 (Packet Switching)
+### 2. 패킷 교환망 (Packet Switching)
 - 컴퓨터 네트워크에서 발전
 - 회선 교환망과는 달리, 전송 경로를 **미리 설정하지 않음**
-- 전송 데이터를 **'패킷'**이라는 블록 단위로 나누어 전송. <br>
+- 전송 데이터를 **'패킷'**이라는 블록 단위로 나누어 전송.
  * 라우터가 패킷을 저장하고, 포워딩 (==중개==스위칭)하기 위함
  * 패킷이란? IP레벨에서 전송될 수 있는 데이터 단위.
 - 장점
