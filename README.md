@@ -98,6 +98,7 @@
 - [[Linux] 리눅스의 주요 명령어들, 파일 및 디렉토리에 대한 접근권한 및 정보 ](https://github.com/Shinye/TIL/blob/master/Linux/linux-cmd-messages.md)
 - [[Linux] sudo권한에 대하여](https://github.com/Shinye/TIL/blob/master/Linux/linux-sudo.md)
 - [[Linux] 리눅스 프로세스+/bin,/sbin 설명 추가](https://github.com/Shinye/TIL/blob/master/Linux/linux_process.md)
+- [[Linux] grep](https://github.com/Shinye/TIL/blob/master/Linux/Linux_grep.md)
 
 
 

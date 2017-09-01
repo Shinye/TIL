@@ -76,7 +76,7 @@ app.post('/ajax_send_email', function(req,res){
 
    라우터에는 다음과 같은 정의가 필요하다 : `app.METHOD(PATH, HANDLER)` 
 
-   1) app은 Express의 인스턴스이다.<br>2) METHOD는 HTTP 메소드<br>3) PATH는 서버에서의 경로이다. 특정 URL(또는 경로)가 들어감. <br> 4) HANDLER는 라우트가 일치할 때 실행되는 함수. 애플리케이션이 요청에 응답하는 방법에 대해 작성한다.
+   1) app은 Express의 인스턴스이다.<br>2) METHOD는 HTTP 메소드<br>3) PATH는 서버에서의 경로이다. 특정 URL(또는 경로)의 내용을 가져온다. <br> 4) HANDLER는 라우트가 일치할 때 실행되는 함수. 애플리케이션이 요청에 응답하는 방법에 대해 작성한다.
 
    ​
 
