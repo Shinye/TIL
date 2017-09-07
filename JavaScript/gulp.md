@@ -15,8 +15,6 @@ $ npm init
 $ sudo npm install -g gulp
 ```
 
-<br>
-
 ### gulp와 gulp-util을 devDependencies로 모듈 설치
 
 gulp-util : gulp에서 로그를 쉽게 기록 할 수 있게 해준다.
@@ -25,15 +23,11 @@ gulp-util : gulp에서 로그를 쉽게 기록 할 수 있게 해준다.
 $ npm install --save-dev gulp gulp-util
 ```
 
-<br>
-
 ### gulp에서 ES6를 사용하고 싶다면
 
 ```shell
 $ npm install --save-dev babel-core babel-preset-es2015
 ```
-
-<br>
 
 ### `.babelrc` 파일 생성
 
@@ -53,8 +47,6 @@ $ npm install --save-dev babel-core babel-preset-es2015
   ]
 },
 ```
-
-<br>
 
 ### gulpfile.babel.js 작성
 
@@ -126,8 +118,6 @@ gulp에서 가장 핵심적인 API로써, gulp가 처리할 작업(task)들을 �
 - (생략가능) **fn** : 해당 task가 실행 할 함수.
 
 
-<br>
-
 
 ### 2. gulp.src(globs[, options])
 
@@ -139,8 +129,6 @@ gulp가 어떤 파일들을 읽을지 정의한다.
 - (생략가능) **options** : Object형태 / glob에 전달 할 옵션. 
 
 
-<br>
-
 ### 3. gulp.dest(path[, options])
 
 gulp task를 마친 파일들이 어디에 저장될지 정한다. (도착지라는 의미의 destination의 약자.)
@@ -151,8 +139,6 @@ gulp task를 마친 파일들이 어디에 저장될지 정한다. (도착지라
 - (생략가능) **options** : Object형태 / { cwd: ~ , mode: ~ } 형태<br>
   **cwd** 는 현재 디렉토리 위치(Current working directory)로서 .path가 /build/ 이런식으로 상대적일때 현재 디렉토리를 따로 설정하고 싶을 때 사용<br>
   **mode** 는 파일권한 (기본 : “0777”)
-
-<br>
 
 ### 4. gulp.watch(glob[, opts], tasks/cb)
 
@@ -274,6 +260,169 @@ gulp.task('watch', () => {
 ```
 
 <br>
+
+## '클라이언트단' 에서 ES6 및 import 기능 사용하기
+
+> 클라이언트 사이드에서 단순히 ES6 문법을 사용하려면 위에서 했던 것 처럼 babel 을 사용하면 됩니다. 단, 이걸 한다고 해서 import 기능 까지 호환 되지는 않죠.
+
+이 TIL은 [veloport님의 블로그](https://velopert.com/1456) 에 올라온 gulp 튜토리얼을 기반으로 작성하고 있는데, 처음 저 문장을 읽었을 때 import기능까지 호환되지 않는다<- 라는 말이 무슨 말인지 순간 이해 하지 못했었다.
+
+하지만 [모듈에 대해 공부한 것](https://github.com/Shinye/TIL/blob/master/JavaScript/module.md)을 보며 다시 차근차근 생각해보니 다음과 같은 이유에서였다! :)
+
+![https://68.media.tumblr.com/ea198a5f03dc14b661d0fa9d7d3869e4/tumblr_ovwihgTOXk1v80c66o1_1280.png](https://68.media.tumblr.com/ea198a5f03dc14b661d0fa9d7d3869e4/tumblr_ovwihgTOXk1v80c66o1_1280.png)
+
+따라서 ES6의 import 기능을 사용하기 위해서는, CommonJS 기반의 문법을 통해 모듈들을 관리하고 번들링(Module Bundler : 브라우저단에서도 CommonJS 스타일을 사용 할 수 있게 해주는 도구) 할 수 있는 `webpack` 을 사용해야 하는 것이다.
+
+우선 추가적으로 설치 할 것들
+
+```
+$ npm install --save-dev gulp-babel webpack-stream babel-loader
+```
+
+튜토리얼 대로라면 gulp-webpack을 설치해야하지만 최근의 best practice는 gulp-webpack 대신 `webpack-stream` 을 다운받는 것이라고 한다.
+
+
+
+### webpack.config.js 작성하기
+
+```javascript
+var webpack = require('webpack');
+
+module.exports = {
+    entry: './src/js/main.js', 
+  // entry: ./src/js/main.js 파일을 가장 처음으로 읽습니다. 그리고 그 파일에서부터 import 된 파일들을 계속해서 읽어가면서 연결시켜줍니다.
+
+    output: { // output: 읽은 파일을 모두 합쳐서 /dist/js/bundle.js 에 저장합니다.
+        path: __dirname + '/dist/js/',
+        filename: 'bundle.js'
+    },
+
+    module: { // module: 읽은 파일들을 babel-loader 를 통하여 ES6 스크립트를 컴파일해줍니다.
+        loaders: [
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                query: {
+                    cacheDirectory: true,
+                    presets: ['es2015']
+                }
+            }
+        ]
+    },
+
+    plugins: [ // plugins: UglifyJsPlugin 을 사용하여 컴파일한 스크립트를 minify 합니다.
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
+    ]
+};
+```
+
+webpack플러그인에서 uglifyJS플러그인을 쓰기 때문에 gulp-uglify를 더 이상 쓸 필요는 없다.
+
+웹팩을 반영하여 gulpfie.babel.js를 수정하면 다음과 같다.
+
+```javascript
+'use strict';
+
+import gulp from 'gulp';
+import gutil from 'gulp-util';
+//import uglify from 'gulp-uglify'; // webpack에서 uglifyjs를 사용하므로,, 더 이상 gulp-uglify가 필요 없어졌습니다.
+import cleanCSS from 'gulp-clean-css';
+import htmlmin from 'gulp-htmlmin';
+import imagemin from 'gulp-imagemin';
+import del from 'del';
+import webpack from 'webpack-stream';
+import webpackConfig from './webpack.config.js';
+
+// 디렉토리 정의
+const DIR = {
+    SRC: 'src',
+    DEST: 'dist'
+};
+
+const SRC = {
+    JS: DIR.SRC + '/js/*.js',
+    CSS: DIR.SRC + '/css/*.css',
+    HTML: DIR.SRC + '/*.html',
+    IMAGES: DIR.SRC + '/images/*'
+};
+
+const DEST = {
+    JS: DIR.DEST + '/js',
+    CSS: DIR.DEST + '/css',
+    HTML: DIR.DEST + '/',
+    IMAGES: DIR.DEST + '/images'
+};
+
+gulp.task('default', ['clean', 'webpack', 'css', 'html', 'watch'], () => {
+    gutil.log('Gulp is running...!!!!');
+});
+
+gulp.task('hello', () => {
+    console.log('hello');
+});
+
+gulp.task('world', ['hello'], () => {
+    console.log('world');
+});
+
+gulp.task('js',()=>{
+    return gulp.src(SRC.JS)
+            .pipe(uglify())
+            .pipe(gulp.dest(DEST.JS));
+});
+
+gulp.task('css',()=>{
+    return gulp.src(SRC.CSS)
+            .pipe(cleanCSS({compatibility: 'ie8'}))
+            .pipe(gulp.dest(DEST.CSS));
+});
+
+gulp.task('html', () => {
+    return gulp.src(SRC.HTML)
+          .pipe(htmlmin({collapseWhitespace: true}))
+          .pipe(gulp.dest(DEST.HTML))
+});
+
+gulp.task('clean', () => {
+    return del.sync([DIR.DEST]);
+});
+
+gulp.task('webpack', () => {
+    return gulp.src('src/js/main.js')
+           .pipe(webpack(webpackConfig))
+           .pipe(gulp.dest('dist/js'));
+});
+
+gulp.task('watch', () => {
+    let watcher = {
+        // 첫번째 인수로 전달된 값에 해당하는 파일들을 감시하고 있다가,
+        // 두번째 인수로 전달된 task 를 실행합니다.
+            //js: gulp.watch(SRC.JS, ['js']),
+            webpack: gulp.watch(SRC.JS, ['webpack']),
+            css: gulp.watch(SRC.CSS, ['css']),
+            html: gulp.watch(SRC.HTML, ['html']),
+            images: gulp.watch(SRC.IMAGES, ['images'])
+        };
+
+    let notify = (event) => {
+            // 어떤 파일이 변경되었는지 기록하고 싶다면 다음과 같이~
+            gutil.log('File', gutil.colors.yellow(event.path), 'was', gutil.colors.magenta(event.type));
+        };
+
+    for(let key in watcher) {
+            watcher[key].on('change', notify);
+        }
+});
+```
+
+
+
+
 
 
 ### 참고 URL
