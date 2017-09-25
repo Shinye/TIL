@@ -17,14 +17,14 @@ OS X 기준으로 virtualenv를 다운받기 위해선 사전에 작업해주어
 
 **Homebrew 설치** ([http://brew.sh/index_ko.html](http://brew.sh/index_ko.html))
 <br>터미널을 켜 다음의 코드를 붙여넣기 한다.
-```
+```shell
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 <br>
 ### 2. Python, pip 설치
 파이썬은 다음과 같이 설치할 수 있다.<br>
 
-```
+```shell
 $ brew install python
 #python3의 경우는 brew install python3 을 작성해주면 된다. 
 ```
@@ -33,7 +33,7 @@ $ brew install python
 파이썬 패키지 매니저. 파이썬으로 작성 된 패키지(라이브러리) 를 관리하는 프로그램이다. 라이브러리를 설치할 때, 설치하고자 하는 라이브러리가 의존하는 다른 모든 라이브러리들의 설치까지 포함시켜주며, 설치된 라이브러리의 버전을 주기적으로 관리하는 등의 역할을 담당한다.<br><br>
 pip설치는 다음과 같이 할 수 있다.
 
-```
+```shell
 $ sudo easy_install pip
 ```
 
@@ -42,7 +42,7 @@ pip와 동일한 기능을 하는 파이썬 패키지 매니저.. easy_install �
 
 pip가 올바르게 설치되어 있는지 확인하기 위해선 다음과 같이 pip의 버전을 확인해볼 수 있다.
 
-```
+```shell
 $ pip -V
 # 대문자 V 이다.
 # python3의 pip의 경우 pip3 -V 라고 작성하면 된다.
@@ -52,7 +52,7 @@ $ pip -V
 ### 3. virtualenv / virtualenvwrapper 설치
 아래의 명령어로 간단하게 두 패키지를 설치할 수 있다.
 
-```
+```shell
 $ sudo pip install virtualenv virtualenvwrapper
 ```
 
@@ -76,19 +76,19 @@ VirtualenvWrapper는 `.bashrc` 나 `.zshrc` 에 약간의 설정과정을 거�
 
 우선, 홈 디렉토리로 이동한다.<br>
 
-`````
+`````shell
 $ cd ~
 `````
 
 만든 가상환경이 들어갈 폴더 `.virtualenv` 를 만든다.<br>
 
-```
+```shell
 $ mkdir ~/.virtualenvs
 ```
 
 그리고 홈 디렉토리의 `.bashrc`나 `.zshrc`의 파일 제일 마지막에 아래 코드를 복사해 붙여넣어준다. (파일이 없다면 만들어 사용하시면 된다.)
 
-```
+```shell
 # python virtualenv settings
 export WORKON_HOME=~/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON='$(command \which python3)' # Usage of python3!!
@@ -99,24 +99,33 @@ source /usr/local/bin/virtualenvwrapper.sh
 <br>만약 /usr/local/bin/virtualenvwrapper.sh파일이 존재하지 않는다면, 
 다음 명령어로 virtualenvwrapper.sh파일을 찾아서 위 코드를 바꿔 사용한다. [^find]
 
-```
+```shell
 $ find /usr -name virtualenvwrapper.sh 
 ```
 
 ### 3-2. virtualenvwrapper 기본 명령어들
 
-1) 가상환경 만들기
+1-1) 가상환경 만들기
 
-```
+```shell
 $ mkvirtualenv 가상환경이름
 # 예시
 # mkvirtualenv test_env1
 ```
 mkvirtualenv 명령어를 사용할 경우 홈 디렉토리의 `.virtualenvs` 폴더 안에 가상환경이름을 가진 폴더`test_env1` 가 생긴다.
 
+1-2) Python2.X가 디폴트인 환경에서 `Python3.X` 버전의 가상환경 만들기
+
+```shell
+# 파이썬2가 기본인 환경에서 파이썬3을 기본으로 하는 환경을 만들고 싶은 경우
+$ virtualenv -p python3 [env_name] 
+```
+
+
+
 2) 가상환경 지우기
 
-```
+```shell
 $ rmvirtualenv 가상환경이름
 # 예시
 # rmvirtualenv test_env1
@@ -126,7 +135,7 @@ rmvirtualenv 명령어를 사용할 경우 mkvirtualenv로 만든 가상환경�
 
 3) 가상환경 진입하기 + 가상환경 목록 보기
 
-```
+```shell
 $ workon 가상환경이름
 # 가상환경으로 진입시 앞에 (가상환경이름)이 붙는다.
 (가상환경이름) $
@@ -137,14 +146,14 @@ $ workon 가상환경이름
 workon명령어를 통해 mkvirtualenv로 만든 가상환경으로 진입할 수 있다.<br>
 workon명령어를 가상환경이름 없이 단순하게 칠 경우, 현재 만들어져있는 가상환경의 전체 목록을 불러온다.
 
-```
+```shell
 $ workon
 test_env3 test_env5
 ```
 
 4) 다른 가상환경으로 전환하기
 
-```
+```shell
 (test_env3) $workon test_env5
 (test_env5) $
 ```
@@ -153,7 +162,7 @@ test_env3 test_env5
 
 5) 가상환경 빠져나오기
 
-```
+```shell
 (가상환경이름) $ deactivate
 $
 # 예시
@@ -173,4 +182,4 @@ https://pypi.python.org/pypi/virtualenvwrapper<br>
 http://blog.naver.com/ez_/140138625021<br>
 http://intersnipe.blogspot.kr/2015/01/mac-django-virtualenv-virtualenvwrapper.html
 https://beomi.github.io/2016/12/27/HowToSetup-Virtualenv-VirtualenvWrapper.html
-http://hackersstudy.tistory.com/43
+http://hackersstudy.tistory.com/43<br>http://ulismoon.tistory.com/2
