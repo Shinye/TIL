@@ -2,13 +2,13 @@
 
 ### 목차
 
-- [React란?]()
-- [라이브러리 vs 프레임워크]()
-- [Virtual DOM]()
-- [React의 장단점]()
-- [React의 구조 - Elements]()
-- [React의 구조 - Component]()
-- [JSX]()
+- [React란?](https://github.com/Shinye/TIL/blob/master/JavaScript/react_basics1.md#react%EB%9E%80)
+- [라이브러리 vs 프레임워크](https://github.com/Shinye/TIL/blob/master/JavaScript/react_basics1.md#%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-vs-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC)
+- [Virtual DOM](https://github.com/Shinye/TIL/blob/master/JavaScript/react_basics1.md#virtual-dom)
+- [React의 장단점](https://github.com/Shinye/TIL/blob/master/JavaScript/react_basics1.md#reactjs%EC%9D%98-%EC%9E%A5%EC%A0%90)
+- [React의 구조 - Elements](https://github.com/Shinye/TIL/blob/master/JavaScript/react_basics1.md#elements)
+- [React의 구조 - Component](https://github.com/Shinye/TIL/blob/master/JavaScript/react_basics1.md#component)
+- [JSX](https://github.com/Shinye/TIL/blob/master/JavaScript/react_basics1.md#jsx)
 
 
 
@@ -34,9 +34,9 @@
 
   - 재사용이 필요한 기능으로 `반복적인 코드 작성을 없애기 위해` `언제든지 필요한 곳에서 호출` 하여 사용할 수 있도록 Class나 Function으로 만들어진 것.
   - `사용 여부는 코드 작성자 선택 사항` 이며 새로운 라이브러리 제작 시에도 엄격한 규칙이 존재하지 않는다. 제작 의도에 맞게 작성하면 된다.
-  - **예시 : **jQuery, React, 객체지향 프로그래밍(OOP)은 기본적으로 각 기능마다 함수화하는 것으로 클래스 라이브러리라고 할수도 있다
+  - **예시 :** jQuery, React, 객체지향 프로그래밍(OOP)은 기본적으로 각 기능마다 함수화하는 것으로 클래스 라이브러리라고 할수도 있다
 
-- **프레임워크 : [제어의 역전] 필요한 기본적인 기능들이 이미 모두 만들어져있음. 틀이 있으면 이 안에 필요한 걸 채워넣는 것. **
+- **프레임워크 : [제어의 역전] 필요한 기본적인 기능들이 이미 모두 만들어져있음. 틀이 있으면 이 안에 필요한 걸 채워넣는 것.**
 
   간략 설명: 프로그램 기본 구조(뼈대)
   비교 설명: 자동차 프레임
@@ -59,7 +59,7 @@
   프레임워크는 가져다가 사용한다기보다는 거기에 들어가서 사용한다는 느낌/관점으로 접근할 수 있다.
 
   ```
-  - 제어의 역전?
+  # 제어의 역전?
   제어의 역전이란 어떠한 일을 하도록 만들어진 프레임워크에 제어의 권한을 넘김으로써 클라이언트 코드가 신경 써야 할 것을 줄이는 전략입니다.
   이것을 제어가 역전 되었다 라고 합니다. 
   일반적으로 라이브러리는 프로그래머가 작성하는 클라이언트 코드가 라이브러리의 메소드를 호출해서 사용하는 것을 의미 합니다. 
@@ -90,11 +90,11 @@
 
 React.js는 자바스크립트 내에 DOM Tree와 같은 구조체를 VIRTUAL DOM으로 갖고 있다. 
 
-Virtual DOM은 실제 DOM의 구조와 비슷한, React 객체의 트리다. 개발자는 직접 DOM을 제어하지 않고 Virtual DOM을 제어하고, React에서 적절하게 Virtual DOM을 DOM에 반영하는 작업을 한다
+Virtual DOM은 실제 DOM의 구조와 비슷한, React 객체의 트리다. <br>개발자는 직접 DOM을 제어하지 않고 Virtual DOM을 제어하고, React에서 적절하게 Virtual DOM을 DOM에 반영하는 작업을 한다
 
 다시 말해, DOM을 제어하는 방식이 아니라 중간에 가상의 DOM인 Virtual DOM을 두어 개발의 편의성(DOM을 직접 제어하지 않음)과 성능(배치 처리로 DOM 변경)을 개선한 것이다.
 
-`setState(forceUpdate)` 함수가 호출되면 그 컴포넌트와 하위 컴포넌트가 다시 랜더링되는 대상이 된다. 이 말을 듣게 되면 매번 광범위하게 DOM이 갱신된다고 느껴지지만 React.js에서는 VIRTUAL DOM이라고 하는 형태로 메모리상에 DOM의 상태를 유지하고 있고 전/후 상태를 비교하여 달라진 부분만 실제 DOM에 반영한다. 참고로 CSS도 마찬가지로 객체 형식으로 지정해 변경된 Style만 갱신한다.
+`setState(forceUpdate)` 함수가 호출되면 그 컴포넌트와 하위 컴포넌트가 다시 랜더링되는 대상이 된다.<br> 이 말을 듣게 되면 매번 광범위하게 DOM이 갱신된다고 느껴지지만 React.js에서는 VIRTUAL DOM이라고 하는 형태로 메모리상에 DOM의 상태를 유지하고 있고, 전/후 상태를 비교하여 달라진 부분만 실제 DOM에 반영한다. 참고로 CSS도 마찬가지로 객체 형식으로 지정해 변경된 Style만 갱신한다.
 
 즉, UI를 다시 그릴 때는 그 구조체의 전후 상태를 비교하여 변경이 필요한 최소한의 요소만 실제 DOM에 반영한는 말이다. 따라서 무작위로 다시 그려도 변경에 필요한 최소한의 DOM만 갱신되기 때문에 빠르게 처리할 수 있다.
 
