@@ -9,6 +9,7 @@
 - [React의 구조 - Elements](https://github.com/Shinye/TIL/blob/master/JavaScript/react_basics1.md#elements)
 - [React의 구조 - Component](https://github.com/Shinye/TIL/blob/master/JavaScript/react_basics1.md#component)
 - [JSX](https://github.com/Shinye/TIL/blob/master/JavaScript/react_basics1.md#jsx)
+- [Component import 관련]()
 
 
 
@@ -384,12 +385,30 @@ render() {
 
 - JSX에서 주석처리를 할 때는 `{ /* .... */ }` 다음과 같이 container element 안에 주석이 작성되어야 한다.
 
-  ​
 
-  ​
+
+### Component import 관련
+
+지금까지의 예시에서 컴포넌트를 정의할 때 `class ComponentName extends React.Component` 와 같은 형식으로 정의하였다. 하지만 react의 boilerplate를 다운받아서 사용할 때 해당 코드를 보면 `class ComponentName extends Component` 와 같이 정의되어 있기도 하다.
+
+그 이유는 코드 상단을 확인해보면 알 수 있다.
+
+```javascript
+// ... extends React.Component 라고 사용하는 경우
+import React, { Component } from 'react';
+
+// ... extends Component 라고 사용하는 경우
+import React from 'react';
+```
+
+이 둘의 차이가 무엇인지 몰라 찾아보았고 [여기(When should I use curly braces for ES6 import?)](https://stackoverflow.com/questions/36795819/when-should-i-use-curly-braces-for-es6-import) 에 아주 잘 나와있다. 그리고 [나의 TIL](https://github.com/Shinye/TIL/blob/master/JavaScript/module.md#es6-%EB%AA%A8%EB%93%88-%ED%8F%AC%EB%A7%B7)에도…잘 나와 있었다…^^;……엉엉...
+
+
+
+
 
 ### 참고URL
 
 [inflearn - React & Express 를 이용한 웹 어플리케이션 개발하기](https://www.inflearn.com/course/react-강좌-velopert/)
 
-[[React] 2. Elements and Component](https://jaeyeophan.github.io/2017/05/19/React-2-Elements-and-Component/)<br>[Components and Props](https://reactjs.org/docs/components-and-props.html)<br>[Rendering Elements](https://reactjs.org/docs/rendering-elements.html)<br>[Introducing JSX](https://reactjs.org/docs/introducing-jsx.html)<br>[coderifleman - React.js를 이해하다(4)](https://blog.coderifleman.com/2015/06/29/learning-react-4/)<br>[coderifleman - React.js를 이해하다(1)](https://blog.coderifleman.com/2015/06/29/learning-react-1/)<br>[NAVER D2 - React 적용 가이드 - React 작동 방법](http://d2.naver.com/helloworld/9297403)<br>[프레임워크와 라이브러리의 차이점](http://webclub.tistory.com/458)<br>[프레임워크와 라이브러리의 차이](http://web-front-end.tistory.com/63)<br>[React Without JSX](https://reactjs.org/docs/react-without-jsx.html)
+[[React] 2. Elements and Component](https://jaeyeophan.github.io/2017/05/19/React-2-Elements-and-Component/)<br>[Components and Props](https://reactjs.org/docs/components-and-props.html)<br>[Rendering Elements](https://reactjs.org/docs/rendering-elements.html)<br>[Introducing JSX](https://reactjs.org/docs/introducing-jsx.html)<br>[coderifleman - React.js를 이해하다(4)](https://blog.coderifleman.com/2015/06/29/learning-react-4/)<br>[coderifleman - React.js를 이해하다(1)](https://blog.coderifleman.com/2015/06/29/learning-react-1/)<br>[NAVER D2 - React 적용 가이드 - React 작동 방법](http://d2.naver.com/helloworld/9297403)<br>[프레임워크와 라이브러리의 차이점](http://webclub.tistory.com/458)<br>[프레임워크와 라이브러리의 차이](http://web-front-end.tistory.com/63)<br>[React Without JSX](https://reactjs.org/docs/react-without-jsx.html)<br>
