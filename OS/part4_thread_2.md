@@ -204,6 +204,6 @@ MS에서 나오는 모든 운영체제의 기본이 되는 API. 스레드의 일
 
 ### References
 
-[Difference between fork() and exec()](https://www.geeksforgeeks.org/difference-fork-exec/)<br/ >[리눅스 커널 운영체제 강의노트3]([https://medium.com/pocs/%EB%A6%AC%EB%88%85%EC%8A%A4-%EC%BB%A4%EB%84%90-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EA%B0%95%EC%9D%98%EB%85%B8%ED%8A%B8-3-9ed24cf457ce](https://medium.com/pocs/리눅스-커널-운영체제-강의노트-3-9ed24cf457ce)) <br />[스레드의 취소와 종료](https://www.joinc.co.kr/w/Site/Thread/Advanced/ThreadCancle)<br />[manpages-pthread_cancel(3)](https://github.com/wariua/manpages-ko/wiki/pthread_cancel(3)) <br />[Thread Local Storage](https://ozt88.tistory.com/37)
+[Difference between fork() and exec()](https://www.geeksforgeeks.org/difference-fork-exec/)<br/ >[리눅스 커널 운영체제 강의노트3](https://medium.com/pocs/%EB%A6%AC%EB%88%85%EC%8A%A4-%EC%BB%A4%EB%84%90-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EA%B0%95%EC%9D%98%EB%85%B8%ED%8A%B8-3-9ed24cf457ce) <br />[스레드의 취소와 종료](https://www.joinc.co.kr/w/Site/Thread/Advanced/ThreadCancle)<br />[manpages-pthread_cancel(3)](https://github.com/wariua/manpages-ko/wiki/pthread_cancel(3)) <br />[Thread Local Storage](https://ozt88.tistory.com/37)
 
 [TLS](http://egloos.zum.com/sweeper/v/1985738)<br />[activations.pdf](https://cs.nyu.edu/rgrimm/teaching/sp07-os/activations.pdf)
