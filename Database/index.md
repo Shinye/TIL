@@ -108,3 +108,14 @@ LIMIT 3;
 - 인덱스를 많이 생성하는 것은 INSERT/UPDATE/DELETE의 성능 저하의 원인이 될 수 있다.
 - 인덱스 스캔이 테이블 순차 스캔보다 항상 빠르지는 않다. 보통 선택도(selectivity)가 5~10% 이내인 경우에 인덱스 스캔이 우수하다.
 
+
+
+
+
+## Clustered Index &  Secondary Index
+
+https://ducmanhphan.github.io/2020-04-12-Understanding-about-clustered-index-in-RDBMS/
+
+https://jojoldu.tistory.com/172
+
+https://medium.com/free-code-camp/database-indexing-at-a-glance-bb50809d48bd
